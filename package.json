@@ -1,0 +1,23 @@
+{
+  "name": "gabarit_web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./src/sass/style.scss:./assets/css/style.css",
+    "browser": "browser-sync start --proxy 'http://localhost/Agenda/public' --files '**/*'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.32.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GenzoWeb/Calendrier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GenzoWeb/Calendrier/issues"
+  },
+  "homepage": "https://github.com/GenzoWeb/Calendrier#readme",
+  "description": ""
+}
