@@ -12,7 +12,7 @@
    <body>
       <nav>
          <a href="\Agenda/public">Accueil</a>
-         <a href="test">page test</a>
+         <a href="annee">page année</a>
       </nav>
 
       <div>

@@ -1,5 +1,4 @@
-<?php
-$title = "Calendriers";
+<?php 
+$calendarsYear = new \Views\DisplayCalendar(12);
+$calendarsYear->displayCalendarHtml();
 ?>
-
-<h1>Page test</h1>

@@ -1,1 +1,4 @@
-<h1>Accueil</h1>
+<?php
+$calendarsHome = new \Views\DisplayCalendar(2);
+$calendarsHome->displayCalendarHtml();
+?>

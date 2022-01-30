@@ -17,6 +17,10 @@ class ComposerStaticInit286550f2389b1dbf5aa2d8de8ebfb907
         array (
             'Whoops\\' => 7,
         ),
+        'V' => 
+        array (
+            'Views\\' => 6,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -37,6 +41,10 @@ class ComposerStaticInit286550f2389b1dbf5aa2d8de8ebfb907
         'Whoops\\' => 
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
+        'Views\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/views/base',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
