@@ -1,0 +1,47 @@
+#header {
+   width: 100%;
+   height: 50px;
+   color: $colorTextNav;
+
+   nav {
+      height: 100%;
+      font-weight: 500;
+      border-bottom: 1px solid $borderNav;
+   }
+
+   ul {
+      @include alignCenter;
+      line-height: 50px;
+   }
+
+   li {
+      padding: 0 20px;
+      font-size: 1.1em;
+      cursor: pointer;
+
+      &:hover {
+         color: $daysCalendar;
+      }
+   }
+
+   .year_list {
+      display: none;
+      position: absolute;
+      flex-direction: column;
+      background-color: white;
+      border: 1px solid $borderNav;
+      z-index: 10;
+      color: $colorTextNav;
+      top: 50px;
+      box-shadow: 0 2px 4px black;
+   }
+   
+   li:hover .year_list {
+      display: block;
+
+      li:hover {
+         background-color: $borderNav;
+         color: $colorTextNav;
+      }
+   }
+}

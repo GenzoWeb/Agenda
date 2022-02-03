@@ -10,13 +10,24 @@
       <title><?= $title ?? 'Accueil'?></title>
    </head>
    <body>
-      <nav>
-         <a href="\Agenda/public">Accueil</a>
-         <a href="annee">page année</a>
-      </nav>
-
-      <div>
-         <?= $content ?>
+      <div class="container">
+         <header id="header">
+            <nav>
+               <ul>
+                  <li><a href="\Agenda/public">Accueil</a></li>
+                  <li>
+                     <a href="annee">Calendriers annuels</a>
+                     <ul class="year_list">
+                        <?php for ($i = 0; $i < 4; $i++):?>
+                        <li><a href="annee">Calendrier <?= intval(date('Y') + ($i - 1))?></a></li>
+                        <?php endfor;?>
+                     </ul>
+               </ul>
+            </nav>
+         </header>
+         <div class="content">
+            <?= $content ?>
+         </div>
       </div>
    </body>
 </html>

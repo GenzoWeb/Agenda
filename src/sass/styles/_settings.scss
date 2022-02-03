@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500');
+
+/************************  COLOR  ************************/
+$bodyColor:#f5f5f5;
+$textColor: black;
+$borderNav: #8398ec;
+$colorTextNav: #121c42;
+$colorCalendar: white;
+$bgTitleCalendar: rgb(72, 72, 255);
+$daysCalendar: rgb(173, 173, 255);
+$bgWeeksCalendar: rgb(192, 192, 192);
+$maxWidthContainer: 1500px;
+
+
+/************************  FONTS  ************************/
+$font: 'Roboto', sans-serif;
+
+/************************  SPACING  ************************/
+$spacing1: .2rem;
+$spacing2: .5rem;
+$spacing3: 1rem;
+$spacing4: 1.5rem;
+$spacing4: 2rem;
+
+/************************  MIXINS  ************************/
+@mixin alignCenter {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+@mixin verticalCenter {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+body {
+   font-family: $font;
+   font-weight: 200;
+   color: $textColor;
+   background-color: $bodyColor;
+}
+
+.container {
+   max-width: $maxWidthContainer;
+   margin: auto;
+}
+
+.content {
+   margin-top: $spacing4;
+}
