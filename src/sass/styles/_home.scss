@@ -1,4 +1,8 @@
 .section_home {
    display: flex;
    justify-content: space-between;
+
+   .calendar {
+      min-height: 600px;
+   }
 }

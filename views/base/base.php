@@ -16,10 +16,10 @@
                <ul>
                   <li><a href="\Agenda/public">Accueil</a></li>
                   <li>
-                     <a href="annee">Calendriers annuels</a>
+                     <a href="annee-<?= intval(date('Y'))?>">Calendriers annuels</a>
                      <ul class="year_list">
                         <?php for ($i = 0; $i < 4; $i++):?>
-                        <li><a href="annee">Calendrier <?= intval(date('Y') + ($i - 1))?></a></li>
+                        <li><a href="annee-<?= intval(date('Y') + ($i - 1))?>">Calendrier <?= intval(date('Y') + ($i - 1))?></a></li>
                         <?php endfor;?>
                      </ul>
                </ul>

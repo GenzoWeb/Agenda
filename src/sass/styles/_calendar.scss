@@ -9,6 +9,10 @@
       line-height: 40px;
    }
 
+   .link_month:hover {
+      font-weight: 500;
+   }
+
    tbody {
       background-color: $colorCalendar;
    }

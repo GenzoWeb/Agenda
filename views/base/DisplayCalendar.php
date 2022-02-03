@@ -9,12 +9,12 @@ class DisplayCalendar extends \App\Calendar\Month {
          $starts = $this->getFirstDay();
          $starts = $starts->format("N") === '1' ? $starts : $this->getFirstDay()->modify('last monday');
       ?> 
-         <div>
+         <div class="table_calendar">
             <table class="calendar">
                <thead>
                   <tr>
                      <th colspan="8">
-                        <?= $this->getDate(); ?>
+                        <a class="link_month" href=<?="mois-" .$this->month . "-annee-" . $this->year?>><?= $this->getDate(); ?></a>
                      </th>
                   </tr>
                </thead>
@@ -57,11 +57,11 @@ class DisplayCalendar extends \App\Calendar\Month {
 
    public function testToday($day): void
    {
-      $today = date('m-d');
+      $today = date('m-d-Y');
       $month = intval(date('m'));
       $displayDay = $day->format('d');
 
-      if ( $today === $day->format('m-d') && $month === $this->month) { ?>
+      if ( $today === $day->format('m-d-Y') && $month === $this->month) { ?>
          <p class="active_today"> <?= $displayDay ?></p>
       <?php
       } else { ?>

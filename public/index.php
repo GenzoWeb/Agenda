@@ -10,5 +10,6 @@ $whoops->register();
 $router = new App\Router(dirname(__DIR__) . '/views');
 $router
     ->get('/', 'calendar/home', 'home')
-    ->get('/annee', 'calendar/calendars', 'calendars')
+    ->get('/mois-[i:month]-annee-[i:year]', 'calendar/month', 'month')
+    ->get('/annee-[i:year]', 'calendar/calendars', 'calendars')
     ->run();

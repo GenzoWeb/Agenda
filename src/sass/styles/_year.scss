@@ -1,0 +1,9 @@
+.section_year {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+
+   .table_calendar {
+      margin-bottom: $spacing3;
+   }
+}

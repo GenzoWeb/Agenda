@@ -61,6 +61,9 @@ body {
   background-color: #8398ec;
   color: #121c42;
 }
+#header a {
+  display: block;
+}
 
 .calendar {
   min-height: 400px;
@@ -71,6 +74,9 @@ body {
   background-color: #4848ff;
   color: white;
   line-height: 40px;
+}
+.calendar .link_month:hover {
+  font-weight: 500;
 }
 .calendar tbody {
   background-color: white;
@@ -112,6 +118,23 @@ body {
 .section_home {
   display: flex;
   justify-content: space-between;
+}
+.section_home .calendar {
+  min-height: 600px;
+}
+
+.section_year {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.section_year .table_calendar {
+  margin-bottom: 1rem;
+}
+
+.section_month .calendar {
+  width: 100%;
+  height: calc(100vh - 83px);
 }
 
 /*# sourceMappingURL=style.css.map */
