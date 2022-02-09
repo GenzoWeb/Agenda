@@ -25,34 +25,67 @@
          height: 20px;
          line-height: 20px;
       }
+
+      .day_calendar {
+         background-color: $daysCalendar;
+      }
    }
 
    td {
+      position: relative;
       border: 1px solid black;
       padding: 10px;
-      height: 50px;
+      min-height: 50px;
+      width: 80px;
    }
 
    .number_week {
       width: 10px;
       background-color: $bgWeeksCalendar;
       color: white;
+      text-align: center;
    }
 
-   .day_calendar {
-      width: 80px;
-      background-color: $daysCalendar;
+   .days_off {
+      background-color: skyblue;
    }
 
    .active_today {
       background-color: $daysCalendar;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      position: absolute;
+      width: 25px;
+      height: 25px;
       text-align: center;
-      line-height: 30px;
+      line-height: 25px;
       margin-top: -7px;
       margin-left: -7px;
+   }
+
+   .events {
+      bottom: 10px;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      margin-left: -10px;
+   }
+
+   .holiday {
+      margin-bottom: $spacing2;
+   }
+
+   .event_modified {
+      display: none;
+   }
+}
+
+@media #{$small} {
+   .calendar {
+      .event {
+         display: none;
+      }
+   
+      .event_modified {
+         display: block;
+      }
    }
 }

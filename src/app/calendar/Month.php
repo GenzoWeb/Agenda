@@ -5,7 +5,7 @@ class Month {
 
    public $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
-   public $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+   public $days = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
 
    public function __construct(?int $numberMonth = null, ?int $month = null, ?int $year = null)
    {

@@ -1,8 +1,28 @@
 .section_home {
    display: flex;
    justify-content: space-between;
+   flex-wrap: wrap;
 
    .calendar {
       min-height: 600px;
+   }
+}
+
+@media #{$medium} {
+   .section_home {
+      flex-direction: column;
+      align-items: center;
+
+      .table_calendar {
+         margin-bottom: $spacing3;
+      }
+
+      .table_calendar {
+         width: 100%;
+      }
+
+      .calendar  {
+         width: 100%;
+      }
    }
 }

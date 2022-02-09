@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500');
 
-$maxWidthContainer: 1500px;
+$maxWidthContainer: 1520px;
 $heightNav: 50px;
 
 /************************  COLOR  ************************/
@@ -47,8 +47,13 @@ body {
 .container {
    max-width: $maxWidthContainer;
    margin: auto;
+   padding: 0 10px;
 }
 
 .content {
    margin-top: $spacing4;
 }
+
+/************************  MEDIA-QUERIES  ************************/
+$medium: "only screen and (max-width: 1535px)";
+$small: "only screen and (max-width: 690px)";

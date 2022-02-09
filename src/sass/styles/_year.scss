@@ -6,4 +6,44 @@
    .table_calendar {
       margin-bottom: $spacing3;
    }
+
+   .holiday {
+      display: none;
+   }
+
+   .event {
+      display: none;
+   }
+
+   .event_modified {
+      display: block;
+   }
 }
+
+@media #{$medium} {
+   .section_year {
+      gap: 5px;
+
+      .calendar {
+         td {
+            width: auto;
+         }
+      }
+   
+      .event {
+         display: none;
+      }
+
+      .event_modified {
+         display: block;
+      }
+   }
+}
+
+@media #{$small} {
+   .section_year {
+      flex-direction: column;
+      align-items: center;
+   }
+}
+

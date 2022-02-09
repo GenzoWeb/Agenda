@@ -2,11 +2,13 @@
    width: 100%;
    height: $heightNav;
    color: $colorTextNav;
+   display: flex;
+   justify-content: center;
+   border-bottom: 1px solid $borderNav;
 
    nav {
       height: 100%;
       font-weight: 500;
-      border-bottom: 1px solid $borderNav;
    }
 
    ul {

@@ -4,3 +4,4 @@
    $calendarsHome->displayCalendarHtml();
    ?>
 </div>
+
