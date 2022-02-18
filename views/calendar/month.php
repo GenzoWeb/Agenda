@@ -3,7 +3,7 @@
    $title = "Calendrier mensuel";
    $month = (int)$params['month'];
    $year = (int)$params['year'];
-   $calendarsYear = new \Views\DisplayCalendar(1, $month, $year);
-   $calendarsYear->displayCalendarHtml();
+   $calendarsMonth = new \Views\DisplayCalendar(1, $month, $year);
+   $calendarsMonth->displayCalendarHtml();
    ?>
 </div>

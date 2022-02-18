@@ -1,0 +1,28 @@
+.section_events {
+   text-align: center;
+
+   .events {
+      margin-top: $spacing5;
+
+      span  {
+         font-weight: lighter;
+      }
+   }
+
+   .event_date {
+      font-weight: 400;
+   }
+
+   .event {
+      margin-bottom: $spacing3;
+   }
+
+   .btn {
+      margin-top: $spacing4;
+      @include button;
+
+      &:hover {
+         @include buttonHover;
+      }
+   }
+}

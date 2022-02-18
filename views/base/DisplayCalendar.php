@@ -1,13 +1,16 @@
 <?php
 namespace Views;
 
+use \App\calendar\Month as Month;
+use App\Connection;
 use DateTime;
 
-class DisplayCalendar extends \App\Calendar\Month {
+class DisplayCalendar extends Month {
    public function displayCalendarHtml()
    {
-      $evenements = new \App\calendar\Events();
-      $dayOff = new \App\calendar\Holidays();
+      $pdo = Connection::getPDO();
+      $evenements = new \App\calendar\Events($pdo);
+      $dayOff = new \App\calendar\Holidays($pdo);
 
       for ( $i = 1; $i <= $this->numberMonth; $i++)
       {
@@ -44,10 +47,15 @@ class DisplayCalendar extends \App\Calendar\Month {
                      $date = $starts->modify("+" . ($k + $j * 7) . "days");
                      $eventsByDay = $events[$date->format('Y-m-d')] ?? [];
                      $holidaysByDay = $holidays[$date->format('Y-m-d')] ?? [];
+                     if ($date->format('w') > 0  && $date->format('w') < 6 ) {
+                        $class = "";
+                     } else {
+                        $class = "week_end";
+                     }
                      if(isset($holidays[$date->format('Y-m-d')])): ?>
-                     <td class="days_off">
+                     <td class="days_off <?= $class?>">
                      <?php else: ?>
-                     <td>
+                     <td class="<?= $class ?>">
                      <?php 
                      endif;
                      $this->testToday($date);
@@ -71,20 +79,32 @@ class DisplayCalendar extends \App\Calendar\Month {
             $this->month = 12;
             $this->year = $this->year - 1;
          }
-      }     
+      }
    }
 
    public function testToday($day)
    {
-      $today = date('m-d-Y');
+      $today = date('Y-m-d');
       $month = intval(date('m'));
       $displayDay = $day->format('d');
 
-      if ( $today === $day->format('m-d-Y') && $month === $this->month): ?>
-         <p class="active_today"> <?= $displayDay ?></p>
+      if ($today === $day->format('Y-m-d') && $month === $this->month): ?>
+         <div class="list_events active_today">
+            <p><?= $displayDay ?></p>
+            <div class="choice_event">
+               <a href="repos/<?= $day->format('d/m/Y')?>">congés</a>
+               <a href="rendez-vous/<?= $day->format('d/m/Y')?>">rdv</a>
+            </div>
+         </div>
       <?php
       else: ?>
-         <p><?= $displayDay ?></p>
+         <div class="list_events">
+            <p><?= $displayDay ?></p>
+            <div class="choice_event">
+               <a href="repos/<?= $day->format('d/m/Y')?>">congés</a>
+               <a href="rendez-vous/<?= $day->format('d/m/Y')?>">rdv</a>
+            </div>
+         </div>
       <?php
       endif;
    }
@@ -98,18 +118,18 @@ class DisplayCalendar extends \App\Calendar\Month {
          <?php 
          endforeach;
          if (count($events) > 2): ?>
-            <p class="event">(X)</p>
+            <a href="evenements-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event">Rdv</a>
          <?php
          else:
             foreach ($events as $event):
                $hourEvent = (new DateTime($event['start']))->format('H');
                $minEvent = (new DateTime($event['start']))->format('i');
                ?>
-               <p class="event"><?= 'Rdz à ' . $hourEvent . 'h' . $minEvent; ?></p>
+               <a href="evenements-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event"><?= 'Rdv à ' . $hourEvent . 'h' . $minEvent; ?></a>
             <?php
             endforeach; 
          endif;?>
-            <p class="event_modified">(X)</p>
+            <a href="evenements-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event_modified">Rdv</a>
       </div>
    <?php
    }

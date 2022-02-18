@@ -22,7 +22,7 @@ $spacing1: .2rem;
 $spacing2: .5rem;
 $spacing3: 1rem;
 $spacing4: 1.5rem;
-$spacing4: 2rem;
+$spacing5: 2rem;
 
 /************************  MIXINS  ************************/
 @mixin alignCenter {
@@ -35,6 +35,26 @@ $spacing4: 2rem;
    display: flex;
    flex-direction: column;
    align-items: center;
+}
+
+@mixin button {
+   font-family: "Poppins", sans-serif;
+   text-transform: uppercase;
+   font-weight: 500;
+   font-size: 14px;
+   letter-spacing: 1px;
+   display: inline-block;
+   padding: 8px 28px;
+   border-radius: 50px;
+   transition: 0.5s;
+   border: 2px solid $borderNav;
+   background: $borderNav;
+   color: #fff !important;
+}
+
+@mixin buttonHover {
+   background: $colorTextNav;
+   border: 2px solid $colorTextNav;
 }
 
 body {
@@ -52,6 +72,35 @@ body {
 
 .content {
    margin-top: $spacing4;
+}
+
+h1 {
+   font-size: 18px;
+   font-weight: 500;
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   gap: $spacing4;
+   margin-top: $spacing4;
+
+   input {
+      height: 30px;
+      border-radius: 25px;
+      padding-left: 15px;
+   }
+
+   .btn {
+      width: 185px;
+      margin: auto;
+      cursor: pointer;
+      @include button;
+
+      &:hover {
+         @include buttonHover;
+      }
+   }
 }
 
 /************************  MEDIA-QUERIES  ************************/

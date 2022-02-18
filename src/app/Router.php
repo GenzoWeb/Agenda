@@ -12,10 +12,16 @@ class Router {
       $this->router = new \AltoRouter();
    }
 
-   public function get(string $url, string $view, ?string $name = null): self
+   public function get(string $url, string $view, ?string $name = null, ?string $method = null): self
    {
+      if ($method) {
+         $method = 'GET|POST';
+      } else {
+         $method = 'GET';
+      }
+
       $this->router->setBasePath('Agenda/public/');
-      $this->router->map('GET', $url, $view, $name);
+      $this->router->map($method, $url, $view, $name);
       return $this;
    }
 

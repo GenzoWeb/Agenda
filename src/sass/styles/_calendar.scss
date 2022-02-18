@@ -50,15 +50,49 @@
       background-color: skyblue;
    }
 
+   .week_end{
+      background-color: rgb(235, 235, 235);
+   }
+
+   .list_events {
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
+   }
+
+   .choice_event {
+      display: none;
+      text-align: center;
+      position: absolute;
+      flex-direction: column;
+      background-color: white;
+      border: 1px solid $borderNav;
+      z-index: 10;
+      color: $colorTextNav;
+      box-shadow: 0 2px 4px black;
+      line-height: normal;
+
+      a {
+         padding: $spacing1;
+
+         &:hover  {
+            background-color: $borderNav;
+            color: $colorTextNav;
+         }
+      }
+   }
+
+   .list_events:hover .choice_event {
+      display: flex;
+   }
+
    .active_today {
       background-color: $daysCalendar;
       border-radius: 50%;
-      width: 25px;
-      height: 25px;
       text-align: center;
       line-height: 25px;
       margin-top: -7px;
-      margin-left: -7px;
+      margin-left: -5px;
    }
 
    .events {

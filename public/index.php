@@ -1,6 +1,4 @@
 <?php
-use App\src\app\Router;
-
 require '../vendor/autoload.php';
 
 $whoops = new \Whoops\Run;
@@ -12,4 +10,9 @@ $router
     ->get('/', 'calendar/home', 'home')
     ->get('/mois-[i:month]-annee-[i:year]', 'calendar/month', 'month')
     ->get('/annee-[i:year]', 'calendar/calendars', 'calendars')
+    ->get('/evenements-[i:year]-[i:month]-[i:day]', 'event/events', 'events')
+    ->get('/login', 'log/login', 'login', 'post')
+    ->get('/rendez-vous/[i:day]?/[i:month]?/[i:year]?', 'event/createEvent', 'createEvent', 'post')
+    ->get('/repos/[i:day]?/[i:month]?/[i:year]?', 'event/daysOff', 'daysOff', 'post')
+    ->get('/logout', 'log/logout', 'logout')
     ->run();

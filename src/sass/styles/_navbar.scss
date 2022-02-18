@@ -1,6 +1,5 @@
 #header {
    width: 100%;
-   height: $heightNav;
    color: $colorTextNav;
    display: flex;
    justify-content: center;
@@ -17,16 +16,24 @@
    }
 
    li {
-      padding: 0 20px;
-      font-size: 1.1em;
-      cursor: pointer;
+      margin: 0 5px;
+
+      a, p {
+         padding: 0 20px;
+         font-size: 1.1em;
+         cursor: pointer;
+      }
 
       &:hover {
          color: $daysCalendar;
       }
    }
 
-   .year_list {
+   .menu {
+      cursor: pointer;
+   }
+
+   .menu_list {
       display: none;
       position: absolute;
       flex-direction: column;
@@ -35,10 +42,15 @@
       z-index: 10;
       color: $colorTextNav;
       top: 50px;
+      margin-left: 15px;
       box-shadow: 0 2px 4px black;
+
+      li {
+         margin: 0;
+      }
    }
    
-   li:hover .year_list {
+   li:hover .menu_list {
       display: block;
 
       li:hover {
@@ -49,5 +61,27 @@
 
    a {
       display: block;
+   }
+
+   .logout {
+      position: absolute;
+      right: 30px;
+   }
+}
+
+@media only screen and (max-width: 850px) {
+   #header {
+      nav {
+         width: 430px;
+      }
+
+      ul{
+         flex-wrap: wrap;
+      }
+
+      .logout {
+         position: relative;
+         right: 0;
+      }
    }
 }

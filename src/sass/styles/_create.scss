@@ -1,0 +1,21 @@
+.section_create {
+   text-align: center;
+
+   .form_create {
+      max-width: 500px;
+      min-height: 300px;
+      padding: 10px;
+      border-radius: 25px;
+      margin: $spacing5 auto 0;
+      box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+
+      textarea {
+         min-height: 50px;
+         resize: none;
+      }
+
+      .btn {
+         width: 140px;
+      }
+   }
+}

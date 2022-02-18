@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+   session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
    <head>   
@@ -14,14 +20,25 @@
          <header id="header">
             <nav>
                <ul>
-                  <li><a href="\Agenda/public">Accueil</a></li>
+                  <li><a href="/Agenda/public">Accueil</a></li>
                   <li>
                      <a href="annee-<?= intval(date('Y'))?>">Calendriers annuels</a>
-                     <ul class="year_list">
-                        <?php for ($i = 0; $i < 4; $i++):?>
-                        <li><a href="annee-<?= intval(date('Y') + ($i - 1))?>">Calendrier <?= intval(date('Y') + ($i - 1))?></a></li>
+                     <ul class="menu_list">
+                        <?php for ($i = 0; $i < 3; $i++):?>
+                        <li><a href="/Agenda/public/annee-<?= intval(date('Y') + $i)?>">Calendrier <?= intval(date('Y') + $i)?></a></li>
                         <?php endfor;?>
                      </ul>
+                  </li>
+                  <li class="menu">
+                     <p>Ajoutez</p>
+                     <ul class="menu_list">
+                        <li><a href="/Agenda/public/repos">Congés</a></li>
+                        <li><a href="/Agenda/public/rendez-vous">Rendez-vous</a></li>
+                     </ul>
+                  </li>
+                  <?php if (isset($_SESSION['logged'])): ?>
+                  <li class="logout"><a href="/Agenda/public/logout">Se déconnecter</a></li>
+                  <?php endif ?>
                </ul>
             </nav>
          </header>
