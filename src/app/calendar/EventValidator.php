@@ -12,4 +12,11 @@ class EventValidator extends Validator {
       $this->validate('start', 'time');
       return $this->errors;
    }
+
+   public function validatesHoliday(array $data) {
+      parent::validates($data);
+      $this->validate('name', 'minLength', 2);
+      $this->validate('start', 'date');
+      return $this->errors;
+   }
 }

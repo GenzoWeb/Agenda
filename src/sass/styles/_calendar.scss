@@ -37,6 +37,7 @@
       padding: 10px;
       min-height: 50px;
       width: 80px;
+      vertical-align: bottom;
    }
 
    .number_week {
@@ -58,6 +59,8 @@
       cursor: pointer;
       width: 25px;
       height: 25px;
+      position: absolute;
+      top: 10px;
    }
 
    .choice_event {
@@ -103,7 +106,13 @@
       margin-left: -10px;
    }
 
+   .two_events {
+      display: flex;
+      flex-direction: column;
+   }
+
    .holiday {
+      display: block;
       margin-bottom: $spacing2;
    }
 

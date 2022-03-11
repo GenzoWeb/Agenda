@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    $errors = [];
    $validator = new \App\calendar\EventValidator();
    $errors = $validator->validates($_POST);
+
    if (empty($errors)) {
       $event = new \App\calendar\Event();
       $event->setName($data['name']);
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $events = new \App\calendar\Events($pdo);
       $events->create($event);
 
-      header('location: /Agenda/public');
+      header('location: /Agenda/public?valider=rendez-vous');
       exit();
    }
 }

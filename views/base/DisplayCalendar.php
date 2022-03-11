@@ -5,6 +5,10 @@ use \App\calendar\Month as Month;
 use App\Connection;
 use DateTime;
 
+if (session_status() === PHP_SESSION_NONE) {
+   session_start();
+}
+
 class DisplayCalendar extends Month {
    public function displayCalendarHtml()
    {
@@ -59,7 +63,7 @@ class DisplayCalendar extends Month {
                      <?php 
                      endif;
                      $this->testToday($date);
-                     if ($eventsByDay):
+                     if ($eventsByDay || $holidaysByDay ):
                         $this->testEvent($holidaysByDay, $eventsByDay);
                      endif;?>
                      </td>
@@ -112,24 +116,34 @@ class DisplayCalendar extends Month {
    public function testEvent($holidays, $events) { ?>
       <div class="events">
          <?php
-         foreach ($holidays as $holiday):
-         ?>
-            <p class="holiday"><?= $holiday['name']; ?></p>
-         <?php 
-         endforeach;
-         if (count($events) > 2): ?>
-            <a href="evenements-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event">Rdv</a>
-         <?php
-         else:
-            foreach ($events as $event):
-               $hourEvent = (new DateTime($event['start']))->format('H');
-               $minEvent = (new DateTime($event['start']))->format('i');
-               ?>
-               <a href="evenements-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event"><?= 'Rdv à ' . $hourEvent . 'h' . $minEvent; ?></a>
+         if($holidays):
+            foreach ($holidays as $holiday):
+               if(isset($_SESSION['logged'])) : ?>
+                  <a href="conges-<?=(new DateTime($holiday['start']))->format('Y-m-d')?>" class="holiday"><?= $holiday['name']; ?></a>
+               <?php else : ?>
+                  <p class="holiday"><?= $holiday['name']; ?></p>
+               <?php endif;
+            endforeach;
+         endif;
+
+         if($events):
+            if (count($events) > 2): ?>
+               <a href="rendez-vous-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event">Rdv</a>
             <?php
-            endforeach; 
-         endif;?>
-            <a href="evenements-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event_modified">Rdv</a>
+            else: ?>
+               <div class="two_events">
+               <?php
+               foreach ($events as $event):
+                  $hourEvent = (new DateTime($event['start']))->format('H');
+                  $minEvent = (new DateTime($event['start']))->format('i');
+               ?>
+                  <a href="rendez-vous-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event"><?= 'Rdv à ' . $hourEvent . 'h' . $minEvent; ?></a>
+               <?php
+               endforeach;  ?>
+               </div>
+            <?php endif; ?>
+            <a href="rendez-vous-<?=(new DateTime($events[0]['start']))->format('Y-m-d')?>" class="event_modified">Rdv</a>
+         <?php endif; ?>
       </div>
    <?php
    }

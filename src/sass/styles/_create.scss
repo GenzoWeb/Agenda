@@ -6,7 +6,7 @@
       min-height: 300px;
       padding: 10px;
       border-radius: 25px;
-      margin: $spacing5 auto 0;
+      margin: $spacing5 auto;
       box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 
       textarea {
@@ -17,5 +17,9 @@
       .btn {
          width: 140px;
       }
+   }
+
+   .form_holidays {
+      min-height: 240px;
    }
 }

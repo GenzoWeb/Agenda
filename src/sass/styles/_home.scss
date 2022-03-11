@@ -1,4 +1,4 @@
-.section_home {
+.section_home_content {
    display: flex;
    justify-content: space-between;
    flex-wrap: wrap;
@@ -9,7 +9,7 @@
 }
 
 @media #{$medium} {
-   .section_home {
+   .section_home_content {
       flex-direction: column;
       align-items: center;
 

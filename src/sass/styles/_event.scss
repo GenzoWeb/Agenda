@@ -9,12 +9,32 @@
       }
    }
 
+   .event {
+      margin-bottom: $spacing3;
+   }
+
+   .event_title {
+      display: flex;
+      justify-content: center;
+   }
+
+   .icon_edit {
+      fill: blue;
+   }
+
+   .icon_delete {
+      fill: red;
+   }
+
    .event_date {
       font-weight: 400;
    }
 
-   .event {
-      margin-bottom: $spacing3;
+   .event_admin {
+      position: absolute;
+      margin-left: 350px;
+      display: flex;
+      gap: 10px;
    }
 
    .btn {

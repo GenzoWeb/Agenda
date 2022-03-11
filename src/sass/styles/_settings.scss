@@ -91,15 +91,35 @@ form {
       padding-left: 15px;
    }
 
-   .btn {
-      width: 185px;
-      margin: auto;
-      cursor: pointer;
-      @include button;
+   textarea {
+      padding-left: 15px;
+   }
+}
 
-      &:hover {
-         @include buttonHover;
-      }
+.btn {
+   margin: auto;
+   cursor: pointer;
+   @include button;
+
+   &:hover {
+      @include buttonHover;
+   }
+}
+
+.white {
+   color: #fff;
+}
+
+.success {
+   display: flex;
+   justify-content: center;
+   margin-bottom: $spacing4;
+
+   p {
+      background-color: rgb(135, 192, 135);
+      padding: 20px;
+      border-radius: 20px;
+      color: white;
    }
 }
 
