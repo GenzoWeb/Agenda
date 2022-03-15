@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+require("../views/holidays/testDaysOff.php");
+
 class Validator {
 
    private $data;
@@ -35,15 +37,27 @@ class Validator {
       }
    }
 
-   public function date(string $field) {
-      if (\DateTime::createFromFormat('Y-m-d', $this->data[$field]) === false) {
-         $this->errors[$field] = "La date ne semble pas valide";
-      }
-   }
-
    public function time(string $field) {
       if (\DateTime::createFromFormat('H:i', $this->data[$field]) === false) {
          $this->errors[$field] = "L'heure ne semble pas valide";
+      }
+   }
+
+   public function date(string $field) {
+      if (\DateTime::createFromFormat('Y-m-d', $this->data[$field]) === false) {
+         $this->errors[$field] = "La date ne semble pas valide";
+      } else {
+         $this->noWork($field);
+      }
+   }
+
+   public function noWork(string $field) {
+
+      if (testNoWorkingDay((new \DateTime($this->data[$field]))->format('d-m-Y')) || 
+         (new \DateTime($this->data[$field]))->format('w') == 0 ||
+         (new \DateTime($this->data[$field]))->format('w') == 6
+      ) {
+         $this->errors[$field] = "Ce jour est un jour non travaillé";
       }
    }
 }

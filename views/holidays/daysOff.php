@@ -19,12 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    $errors = $validator->validatesHoliday($_POST);
 
    if (empty($errors)) {
+      $pdo = Connection::getPDO();
+      $holidays = new \App\calendar\Holidays($pdo);
+      $holidays->getHolidayByDate(new DateTimeImmutable($data['start']));
+      
       $holiday = new \App\calendar\Holiday();
       $holiday->setName($data['name']);
       $holiday->setStart($data['start']);
-
-      $pdo = Connection::getPDO();
-      $holidays = new \App\calendar\Holidays($pdo);
       $holidays->create($holiday);
 
       if($data['end']){
@@ -34,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
          for ($i = 0; $i < $diff; $i++) {
             $testDay = (clone $dateStart)->modify('+1 day')->format("w");
+            $dateStart->modify('+1 day')->format("Y-m-d");
+            $noWork = testNoWorkingDay($dateStart->format("d-m-Y"));
 
-            if($testDay > 0 && $testDay < 6 ) {
+            if($testDay > 0 && $testDay < 6 && !$noWork) {
                $holiday->setName($data['name']);
-               $holiday->setStart($dateStart->modify('+1 day')->format("Y-m-d"));
+               $holiday->setStart($dateStart->format("Y-m-d"));
                $holidays->create($holiday);
-            } else {
-              $dateStart->modify('+1 day')->format("Y-m-d");
             }
          }
       }

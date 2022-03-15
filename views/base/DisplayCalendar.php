@@ -7,14 +7,16 @@ use DateTime;
 
 if (session_status() === PHP_SESSION_NONE) {
    session_start();
-}
+}  
+
+require("../views/holidays/testDaysOff.php");
 
 class DisplayCalendar extends Month {
    public function displayCalendarHtml()
    {
       $pdo = Connection::getPDO();
       $evenements = new \App\calendar\Events($pdo);
-      $dayOff = new \App\calendar\Holidays($pdo);
+      $dayOff = new \App\calendar\Holidays($pdo); 
 
       for ( $i = 1; $i <= $this->numberMonth; $i++)
       {
@@ -47,17 +49,21 @@ class DisplayCalendar extends Month {
                      <td class="number_week">
                         <?= $starts->modify("+" . $j . "week")->format('W')?>
                      </td>
+
                      <?php foreach($this->days as $k => $day):
                      $date = $starts->modify("+" . ($k + $j * 7) . "days");
                      $eventsByDay = $events[$date->format('Y-m-d')] ?? [];
                      $holidaysByDay = $holidays[$date->format('Y-m-d')] ?? [];
-                     if ($date->format('w') > 0  && $date->format('w') < 6 ) {
+                     $noWork = testNoWorkingDay($date->format('d-m-Y'));
+
+                     if ($date->format('w') > 0  && $date->format('w') < 6 && !$noWork) {
                         $class = "";
                      } else {
                         $class = "week_end";
                      }
+
                      if(isset($holidays[$date->format('Y-m-d')])): ?>
-                     <td class="days_off <?= $class?>">
+                     <td class="days_off <?= $class ?>">
                      <?php else: ?>
                      <td class="<?= $class ?>">
                      <?php 

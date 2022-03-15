@@ -59,6 +59,19 @@ class Holidays {
       return $result;
    }
 
+   public function getHolidayByDate(\DateTimeImmutable $start) 
+   {
+      $date = $start->format('Y-m-d');
+      $query = $this->pdo->query("SELECT * FROM holidays WHERE start = '$date'");
+      $result = $query->fetch();
+      if ($result) {
+         throw new \Exception("La date est déjà prise.");
+         // return false;
+      }
+      
+      return true;
+   }
+
    public function create(Holiday $holiday): bool
    {
       $sql = "INSERT INTO holidays (name, start) VALUES (?, ?)";

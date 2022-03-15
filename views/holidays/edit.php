@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $holiday->setName($data['name']);
       $holiday->setStart($data['start']);
 
+      $holidays->getHolidayByDate(new DateTimeImmutable($data['start']));
       $holidays->update($holiday);
 
       header('location: /Agenda/public?valider=congés');
