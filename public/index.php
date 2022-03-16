@@ -20,4 +20,7 @@ $router
     ->get('/conges-suppr-[i:id]', 'holidays/delete', 'deleteHoliday')
     ->get('/login', 'log/login', 'login', 'post')
     ->get('/logout', 'log/logout', 'logout')
+    ->get('/gestion-suppr', 'admin/delete', 'adminDelete', 'post')
+    ->get('/gestion-compteur', 'admin/numberDays', 'adminCounter')
+    ->get('/gestion-modif-compteur', 'admin/editNumberDays', 'adminEditCounter', 'post')
     ->run();

@@ -24,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
                   <li>
                      <a href="annee-<?= intval(date('Y'))?>">Calendriers annuels</a>
                      <ul class="menu_list">
-                        <?php for ($i = 0; $i < 3; $i++):?>
+                        <?php for ($i = -1; $i < 3; $i++):?>
                         <li><a href="/Agenda/public/annee-<?= intval(date('Y') + $i)?>">Calendrier <?= intval(date('Y') + $i)?></a></li>
                         <?php endfor;?>
                      </ul>
@@ -34,6 +34,9 @@ if (session_status() === PHP_SESSION_NONE) {
                      <ul class="menu_list">
                         <li><a href="/Agenda/public/repos">Congés</a></li>
                         <li><a href="/Agenda/public/rendez-vous">Rendez-vous</a></li>
+                        <li><a href="/Agenda/public/gestion-compteur">Nombre de jours</a></li>
+                        <li><a href="/Agenda/public/gestion-modif-compteur">Modifier compteurs</a></li>
+                        <li><a href="/Agenda/public/gestion-suppr">Supprimez</a></li>
                      </ul>
                   </li>
                   <?php if (isset($_SESSION['logged'])): ?>
