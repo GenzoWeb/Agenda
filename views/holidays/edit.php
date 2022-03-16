@@ -21,6 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    if (empty($errors)) {
       $holiday->setName($data['name']);
       $holiday->setStart($data['start']);
+      if(isset($data['semi'])) {
+         $holiday->setSemi("0.5");
+      } else {
+         $holiday->setSemi("1");
+      }
 
       $holidays->getHolidayByDate(new DateTimeImmutable($data['start']));
       $holidays->update($holiday);
@@ -51,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          <?php if (isset($errors['start'])): ?>
             <p><?= $errors['start'] ?> </p>
          <?php endif?>
+         <p>
+           Demi-journée : <input type="checkbox" id="semi" name="semi">
+         </p>
          <button type="submit" class="btn">Modifier</button>
       </form>  
    </div>

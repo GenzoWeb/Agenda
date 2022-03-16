@@ -48,11 +48,15 @@
    }
 
    .days_off {
-      background-color: skyblue;
+      background-color: $bgDayOff;
    }
 
    .week_end {
       background-color: $bgWeekEndsCalendar;
+   }
+
+   .semi {
+      background: linear-gradient($colorCalendar 50%, $bgDayOff 50%);
    }
 
    .list_events {

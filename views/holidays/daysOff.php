@@ -26,6 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $holiday = new \App\calendar\Holiday();
       $holiday->setName($data['name']);
       $holiday->setStart($data['start']);
+      if(isset($data['semi'])) {
+         $holiday->setSemi("0.5");
+      } else {
+         $holiday->setSemi("1");
+      }
       $holidays->create($holiday);
 
       if($data['end']){
@@ -41,6 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if($testDay > 0 && $testDay < 6 && !$noWork) {
                $holiday->setName($data['name']);
                $holiday->setStart($dateStart->format("Y-m-d"));
+               if(isset($data['semi'])) {
+                  $holiday->setSemi(0.5);
+               } else {
+                  $holiday->setSemi("1");
+               }
                $holidays->create($holiday);
             }
          }
@@ -66,6 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          </select>
          <input type="date" name="start" id="start" value="<?= $day ?>" required>
          <input type="date" name="end" id="end">
+         <p>
+           Demi-journée : <input type="checkbox" id="semi" name="semi">
+         </p>
          <button type="submit" class="btn">Envoyer</button>
       </form>  
    </div>

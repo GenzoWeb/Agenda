@@ -198,6 +198,9 @@ form textarea {
 .calendar .week_end {
   background-color: #dbdbdb;
 }
+.calendar .semi {
+  background: linear-gradient(white 50%, skyblue 50%);
+}
 .calendar .list_events {
   cursor: pointer;
   width: 25px;

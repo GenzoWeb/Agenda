@@ -16,7 +16,7 @@ class DisplayCalendar extends Month {
    {
       $pdo = Connection::getPDO();
       $evenements = new \App\calendar\Events($pdo);
-      $dayOff = new \App\calendar\Holidays($pdo); 
+      $dayOff = new \App\calendar\Holidays($pdo);
 
       for ( $i = 1; $i <= $this->numberMonth; $i++)
       {
@@ -55,11 +55,20 @@ class DisplayCalendar extends Month {
                      $eventsByDay = $events[$date->format('Y-m-d')] ?? [];
                      $holidaysByDay = $holidays[$date->format('Y-m-d')] ?? [];
                      $noWork = testNoWorkingDay($date->format('d-m-Y'));
+                     $testtou = "";
+
+                     foreach($holidaysByDay as $holiB) {
+                        if($holiB['semi'] === "0.5") {
+                           $testtou = "semi";
+                        } else {
+                           $testtou = "";
+                        }
+                     }
 
                      if ($date->format('w') > 0  && $date->format('w') < 6 && !$noWork) {
-                        $class = "";
+                        $class = "" . $testtou;
                      } else {
-                        $class = "week_end";
+                        $class = "week_end " . $testtou;
                      }
 
                      if(isset($holidays[$date->format('Y-m-d')])): ?>

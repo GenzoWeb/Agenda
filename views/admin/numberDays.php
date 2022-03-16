@@ -13,30 +13,32 @@ $totalDays = [];
 $daysSet = [];
 $diffDays = [];
 
-foreach($daysHolidays as $t) {
-   $totalDays[$t['name']] = intVal($t['numbers']);
-   if ($t['name'] === $nameHolidays[0]) {
-      $year = $t['year'];
+foreach($daysHolidays as $total) {
+   $totalDays[$total['name']] = intVal($total['numbers']);
+   if ($total['name'] === $nameHolidays[0]) {
+      $year = $total['year'];
    }
-   if ($t['name'] === $children) {
-      $yearChildren = $t['year'];
+   if ($total['name'] === $children) {
+      $yearChildren = $total['year'];
    }
 }
 
-foreach($nameHolidays as $t) {
-   if($t === $children) {
+foreach($nameHolidays as $nameH) {
+   if($nameH === $children) {
       $yearFinal = $yearChildren;
    } else {
       $yearFinal = $year;
    }
-   $daysSet[$t] = $holidays->getSetDays($t, $yearFinal);
+   $daysSet[] = $holidays->getSetDays($nameH, $yearFinal);
 }
 
-foreach($totalDays as $key => $value) {
-   if(array_key_exists($key, $daysSet)) {
-      $diffDays[$key] = intVal($value) - $daysSet[$key];
-   } else {
-      $diffDays[$key] = intVal($value);
+foreach($daysSet as $dS) {
+   foreach($dS as $key => $value) {
+      if(array_key_exists($key, $totalDays)) {
+         $diffDays[$key] = $totalDays[$key] - floatval($value);
+      } else {
+         $diffDays[$key] = intVal($value);
+      }
    }
 }
 ?>

@@ -76,23 +76,25 @@ class Holidays {
 
    public function create(Holiday $holiday): bool
    {
-      $sql = "INSERT INTO holidays (name, start) VALUES (?, ?)";
-      $query = $this->pdo->prepare($sql);
-
-      return $query->execute([
-         $holiday->getName(),
-         $holiday->getStart()->format('Y-m-d')
-      ]);
-   }
-
-   public function update(Holiday $holiday): bool
-   {
-      $sql = "UPDATE holidays SET name = ?, start = ? WHERE id = ?";
+      $sql = "INSERT INTO holidays (name, start, semi) VALUES (?, ?, ?)";
       $query = $this->pdo->prepare($sql);
 
       return $query->execute([
          $holiday->getName(),
          $holiday->getStart()->format('Y-m-d'),
+         $holiday->getSemi(),
+      ]);
+   }
+
+   public function update(Holiday $holiday): bool
+   {
+      $sql = "UPDATE holidays SET name = ?, start = ?, semi = ? WHERE id = ?";
+      $query = $this->pdo->prepare($sql);
+
+      return $query->execute([
+         $holiday->getName(),
+         $holiday->getStart()->format('Y-m-d'),
+         $holiday->getSemi(),
          $holiday->getID()
       ]);
    }
@@ -146,7 +148,7 @@ class Holidays {
       return $result;
    }
 
-   public function getSetDays($name, $year)
+   public function getSetDays($name, $year): array
    {
       if($name === "Enfant malade") {
          $start = new DateTimeImmutable($year . '-01-01');
@@ -157,16 +159,19 @@ class Holidays {
          $end = new DateTimeImmutable($year . '-05-31');
       }
       
-      $sql = "SELECT name, COUNT('name') FROM holidays WHERE name = '$name' AND start BETWEEN '{$start->format('Y-m-d')}' AND '{$end->format('Y-m-d')}'";
+      $sql = "SELECT name, sum(semi) FROM holidays WHERE name = '$name' AND start BETWEEN '{$start->format('Y-m-d')}' AND '{$end->format('Y-m-d')}'";
       $query =  $this->pdo->query($sql);
       $result = $query->fetchAll(\PDO::FETCH_COLUMN|\PDO::FETCH_GROUP);
 
+      $days = [];
       foreach($result as $r) {
-         if($r[0] === "0"){
-         return "0";
+         if($r[0] === null){
+            $days[$name] = "0";
          } else {
-            return $result[$name][0];
+            $days[$name] = $r[0];
          }
       }
+
+      return $days;
    }
 }
