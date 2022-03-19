@@ -59,8 +59,11 @@
       background: linear-gradient($colorCalendar 50%, $bgDayOff 50%);
    }
 
-   .list_events {
+   .cursor {
       cursor: pointer;
+   }
+
+   .list_events {
       width: 25px;
       height: 25px;
       position: absolute;

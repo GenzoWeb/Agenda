@@ -1,0 +1,35 @@
+// .section_error {
+//    margin-top: 50px;
+// }
+
+.section_error {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+
+   .image404 {
+      max-width: 640px;
+      height: auto;
+
+      img {
+         width: 100%;
+      }
+   }
+
+   .text_error_page {
+      margin-top: 50px;
+      font-size: 25px;
+      background-color: white;
+      height: 100px;
+      border-radius: 25px;
+      line-height: 100px;
+      width: 300px;
+      text-align: center;
+   }
+}
+
+@media #{$medium} {
+   .section_error {
+      @include verticalCenter();
+   }
+}

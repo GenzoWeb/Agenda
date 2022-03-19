@@ -22,20 +22,25 @@ class Router {
 
       $this->router->setBasePath('Agenda/public/');
       $this->router->map($method, $url, $view, $name);
+      
       return $this;
    }
 
    public function run()
    {
-      $match = $this->router->match();
-      $view = $match['target'];
-      $params = $match['params'];
-      $router = $this ->router;
-      ob_start();
-      require $this->viewPath . '/' . $view . '.php';
-      $content = ob_get_clean();
-      require $this->viewPath . '/' . 'base/base.php';
+      try {
+         $match = $this->router->match();
+         $view = $match['target'];
+         $params = $match['params'];
+         $router = $this ->router;
+         ob_start();
+         require $this->viewPath . '/' . $view . '.php';
+         $content = ob_get_clean();
+         require $this->viewPath . '/' . 'base/base.php';
 
-      return $this;
+         return $this;
+      } catch (\Exception $e) {
+         header('location: /Agenda/public/erreur');
+      }
    }
 }

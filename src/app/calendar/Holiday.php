@@ -27,15 +27,18 @@ class Holiday {
       return $this->semi;
    }
 
-   public function setName (string $name) {
+   public function setName (string $name) 
+   {
       $this->name = $name;
    }
 
-   public function setStart (string $start) {
+   public function setStart (string $start)
+   {
       $this->start = $start;
    }
 
-   public function setSemi (string $semi) {
+   public function setSemi (string $semi) 
+   {
       $this->semi = $semi;
    }
 }

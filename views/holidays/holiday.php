@@ -21,7 +21,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="conges-modif-<?=$holidaysOfDay[0]['id']?>">
             <box-icon class="icon_edit" type='solid' name='edit-alt'></box-icon>
             </a>
-            <a href="conges-suppr-<?=$holidaysOfDay[0]['id']?>" onclick="return confirm('Voulez vous vraiment supprimer ce conges ?')">
+            <a href="conges-suppr-<?=$holidaysOfDay[0]['id']?>" onclick="return confirm('Voulez-vous vraiment supprimer ce conges ?')">
                <box-icon class="icon_delete" type='solid' name='message-square-x'></box-icon>
             </a>
          </div>

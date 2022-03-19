@@ -20,17 +20,18 @@ if (session_status() === PHP_SESSION_NONE) {
          <header id="header">
             <nav>
                <ul>
-                  <li><a href="/Agenda/public">Accueil</a></li>
+                  <li><a class="link_menu"href="/Agenda/public">Accueil</a></li>
                   <li>
-                     <a href="annee-<?= intval(date('Y'))?>">Calendriers annuels</a>
+                     <a class="link_menu"href="annee-<?= intval(date('Y'))?>">Calendriers annuels</a>
                      <ul class="menu_list">
-                        <?php for ($i = -1; $i < 3; $i++):?>
+                        <?php for ($i = -1; $i < 2; $i++):?>
                         <li><a href="/Agenda/public/annee-<?= intval(date('Y') + $i)?>">Calendrier <?= intval(date('Y') + $i)?></a></li>
                         <?php endfor;?>
                      </ul>
                   </li>
+                  <?php if (isset($_SESSION['logged'])): ?>
                   <li class="menu">
-                     <p>Ajoutez</p>
+                     <p class="link_menu">Gestion</p>
                      <ul class="menu_list">
                         <li><a href="/Agenda/public/repos">Congés</a></li>
                         <li><a href="/Agenda/public/rendez-vous">Rendez-vous</a></li>
@@ -39,8 +40,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         <li><a href="/Agenda/public/gestion-suppr">Supprimez</a></li>
                      </ul>
                   </li>
-                  <?php if (isset($_SESSION['logged'])): ?>
-                  <li class="logout"><a href="/Agenda/public/logout">Se déconnecter</a></li>
+                  <li class="log"><a href="/Agenda/public/logout">Se déconnecter</a></li>
+                  <?php else : ?>
+                  <li class="log"><a href="/Agenda/public/login">Se connecter</a></li>
                   <?php endif ?>
                </ul>
             </nav>

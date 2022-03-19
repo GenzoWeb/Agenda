@@ -12,16 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    if ($pseudo === 'genzo' && password_verify($pass, $password)) {
       session_start();
       $_SESSION['logged'] = 1;
-      header('location:' . $_SESSION['url']);
+      if(isset($_SESSION['url'])) {
+         header('location:' . $_SESSION['url']);
+      } else {
+         header('location: /Agenda/public');
+      }
    } else {
       $error = "Identifiants incorrects";
    }
 
    if (empty($pseudo) || empty($pass)){
-      $error = "Veuillez remplir tout les champs";
+      $error = "Veuiller remplir tout les champs";
    }
 }
-
 ?>
 
 <div class="section_login">
@@ -30,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php if ($error): ?>
       <div><p class="alert"><?= $error ?></p></div>
       <?php endif; ?>
-
       <form action="" method="post">
          <input type="text" name="pseudo" id="pseudo" placeholder="Pseudo" value="<?= $pseudo ?>" >
          <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" value="<?= $pass ?>" >

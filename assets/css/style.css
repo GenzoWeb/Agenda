@@ -103,8 +103,8 @@ form textarea {
   font-size: 1.1em;
   cursor: pointer;
 }
-#header li:hover {
-  color: #adadff;
+#header .link_menu:hover {
+  color: #adadff !important;
 }
 #header .menu {
   cursor: pointer;
@@ -116,7 +116,6 @@ form textarea {
   background-color: white;
   border: 1px solid #8398ec;
   z-index: 10;
-  color: #121c42;
   top: 50px;
   margin-left: 15px;
   box-shadow: 0 2px 4px black;
@@ -129,14 +128,17 @@ form textarea {
 }
 #header li:hover .menu_list li:hover {
   background-color: #8398ec;
-  color: #121c42;
+  color: #121c42 !important;
 }
 #header a {
   display: block;
 }
-#header .logout {
+#header .log {
   position: absolute;
   right: 30px;
+}
+#header .log:hover a {
+  color: #adadff !important;
 }
 
 @media only screen and (max-width: 850px) {
@@ -201,8 +203,10 @@ form textarea {
 .calendar .semi {
   background: linear-gradient(white 50%, skyblue 50%);
 }
-.calendar .list_events {
+.calendar .cursor {
   cursor: pointer;
+}
+.calendar .list_events {
   width: 25px;
   height: 25px;
   position: absolute;
@@ -423,6 +427,37 @@ form textarea {
 }
 .section_create .form_holidays {
   min-height: 240px;
+}
+
+.section_error {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.section_error .image404 {
+  max-width: 640px;
+  height: auto;
+}
+.section_error .image404 img {
+  width: 100%;
+}
+.section_error .text_error_page {
+  margin-top: 50px;
+  font-size: 25px;
+  background-color: white;
+  height: 100px;
+  border-radius: 25px;
+  line-height: 100px;
+  width: 300px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1535px) {
+  .section_error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

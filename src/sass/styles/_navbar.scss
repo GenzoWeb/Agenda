@@ -23,10 +23,10 @@
          font-size: 1.1em;
          cursor: pointer;
       }
+   }
 
-      &:hover {
-         color: $daysCalendar;
-      }
+   .link_menu:hover {
+      color: $daysCalendar !important;
    }
 
    .menu {
@@ -40,7 +40,7 @@
       background-color: white;
       border: 1px solid $borderNav;
       z-index: 10;
-      color: $colorTextNav;
+      // color: $colorTextNav;
       top: 50px;
       margin-left: 15px;
       box-shadow: 0 2px 4px black;
@@ -55,7 +55,7 @@
 
       li:hover {
          background-color: $borderNav;
-         color: $colorTextNav;
+         color: $colorTextNav !important;
       }
    }
 
@@ -63,9 +63,13 @@
       display: block;
    }
 
-   .logout {
+   .log {
       position: absolute;
       right: 30px;
+
+      &:hover a {
+         color: $daysCalendar !important;
+      }
    }
 }
 

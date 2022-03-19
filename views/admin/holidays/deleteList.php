@@ -5,11 +5,11 @@ $auth = new \App\Auth();
 $auth->log($_SERVER['REDIRECT_URL']);
 $pdo = Connection::getPDO();
 $holidays = new \App\calendar\Holidays($pdo);
-$title = "Supprimez jours";
-
+$title = "Supprimer jours";
 $date = new DateTimeImmutable(date('d-m-Y'));
 $year = $date->format('Y');
 $dateChangeCurrent = new DateTimeImmutable(date('01-06-' . $year));
+$errors = [];
 
 if ($date < $dateChangeCurrent) {
    $start = new DateTimeImmutable($year - 1 ."-06-01");
@@ -21,19 +21,20 @@ if ($date < $dateChangeCurrent) {
 
 $holidaysOfYear = $holidays->getHolidays($start, $end);
 
-$errors = [];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    $data = $_POST;
-   foreach($data['delete'] as $id){
-      $holidays->delete($id);
-      header('location: /Agenda/public/gestion-suppr');
+   if ($data) {
+      foreach($data['delete'] as $id){
+         $holidays->delete($id);
+         header('location: /Agenda/public/gestion-suppr');
+      }
    }
 }
 ?>
 
 <div class="section_admin_delete">
-   <h1>Supprimez des jours</h1>
+   <?php if($holidaysOfYear) : ?>
+   <h1>Supprimer des jours</h1>
    <form action="" method="post">
       <table>
          <tr>
@@ -54,5 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </table>
       <button type="submit" class="btn" onclick="return confirm('Voulez vous vraiment supprimer ?')">Supprimer</button>
    </form>
-
+   <?php else :?>
+   <p>Aucun jour n'a été posé.</p>
+   <?php endif; ?>
 </div>
+

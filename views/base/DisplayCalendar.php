@@ -1,13 +1,13 @@
 <?php
 namespace Views;
 
-use \App\calendar\Month as Month;
-use App\Connection;
-use DateTime;
-
 if (session_status() === PHP_SESSION_NONE) {
    session_start();
 }  
+
+use \App\calendar\Month as Month;
+use App\Connection;
+use DateTime;
 
 require("../views/holidays/testDaysOff.php");
 
@@ -17,6 +17,8 @@ class DisplayCalendar extends Month {
       $pdo = Connection::getPDO();
       $evenements = new \App\calendar\Events($pdo);
       $dayOff = new \App\calendar\Holidays($pdo);
+      $sessionTest = new \App\Auth();
+      $sessionTest->unset();
 
       for ( $i = 1; $i <= $this->numberMonth; $i++)
       {
@@ -55,20 +57,20 @@ class DisplayCalendar extends Month {
                      $eventsByDay = $events[$date->format('Y-m-d')] ?? [];
                      $holidaysByDay = $holidays[$date->format('Y-m-d')] ?? [];
                      $noWork = testNoWorkingDay($date->format('d-m-Y'));
-                     $testtou = "";
+                     $semi = "";
 
                      foreach($holidaysByDay as $holiB) {
                         if($holiB['semi'] === "0.5") {
-                           $testtou = "semi";
+                           $semi = "semi";
                         } else {
-                           $testtou = "";
+                           $semi = "";
                         }
                      }
 
                      if ($date->format('w') > 0  && $date->format('w') < 6 && !$noWork) {
-                        $class = "" . $testtou;
+                        $class = "" . $semi;
                      } else {
-                        $class = "week_end " . $testtou;
+                        $class = "week_end " . $semi;
                      }
 
                      if(isset($holidays[$date->format('Y-m-d')])): ?>
@@ -108,24 +110,22 @@ class DisplayCalendar extends Month {
       $displayDay = $day->format('d');
 
       if ($today === $day->format('Y-m-d') && $month === $this->month): ?>
-         <div class="list_events active_today">
-            <p><?= $displayDay ?></p>
-            <div class="choice_event">
-               <a href="repos/<?= $day->format('d/m/Y')?>">congés</a>
-               <a href="rendez-vous/<?= $day->format('d/m/Y')?>">rdv</a>
-            </div>
-         </div>
-      <?php
-      else: ?>
-         <div class="list_events">
-            <p><?= $displayDay ?></p>
-            <div class="choice_event">
-               <a href="repos/<?= $day->format('d/m/Y')?>">congés</a>
-               <a href="rendez-vous/<?= $day->format('d/m/Y')?>">rdv</a>
-            </div>
-         </div>
-      <?php
+      <div class="list_events active_today">
+      <?php else : ?>
+      <div class="list_events">
+      <?php 
       endif;
+      if(isset($_SESSION['logged'])) : ?>
+         <p class="cursor"><?= $displayDay ?></p>
+         <div class="choice_event">
+            <a href="repos/<?= $day->format('d/m/Y')?>">congés</a>
+            <a href="rendez-vous/<?= $day->format('d/m/Y')?>">rdv</a>
+         </div>
+         <?php else : ?>
+         <p><?= $displayDay ?></p>
+         <?php endif; ?>
+      </div>
+   <?php
    }
 
    public function testEvent($holidays, $events) { ?>

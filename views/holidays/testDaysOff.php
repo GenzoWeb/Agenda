@@ -1,7 +1,7 @@
 
 <?php
 
-function testNoWorkingDay($date)
+function testNoWorkingDay($date) : bool
 {
    $year = (new \DateTime($date))->format('Y');
    
@@ -11,7 +11,7 @@ function testNoWorkingDay($date)
    $easterYear   = date('Y', $easterDate);
 
    $holidays = array(
-      // These days have a fixed date
+      // Jours fériés fixes
       date("d-m-Y", mktime(0, 0, 0, 1,  1,  $year)),  // 1er janvier
       date("d-m-Y", mktime(0, 0, 0, 5,  1,  $year)),  // Fête du travail
       date("d-m-Y", mktime(0, 0, 0, 5,  8,  $year)),  // Victoire des alliés
@@ -21,7 +21,7 @@ function testNoWorkingDay($date)
       date("d-m-Y", mktime(0, 0, 0, 11, 11, $year)),  // Armistice
       date("d-m-Y", mktime(0, 0, 0, 12, 25, $year)),  // Noel
 
-      // These days have a date depending on easter
+      // Jours fériés récupérés en fonciton de p
       date("d-m-Y", mktime(0, 0, 0, $easterMonth, $easterDay + 2,  $easterYear)), // Pâques
       date("d-m-Y", mktime(0, 0, 0, $easterMonth, $easterDay + 40, $easterYear)), // Ascension
       // date("d-m-Y", mktime(0, 0, 0, $easterMonth, $easterDay + 51, $easterYear)), // Pentecôte (journée de solidarité)

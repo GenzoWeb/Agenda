@@ -51,7 +51,9 @@ class Holidays {
 
    public function getHolidayById(int $id): Holiday 
    {
-      $query = $this->pdo->query("SELECT * FROM holidays WHERE id = $id");
+      $sql = "SELECT * FROM holidays WHERE id = ?";
+      $query = $this->pdo->prepare($sql);
+      $query->execute([$id]);
       $query->setFetchMode(\PDO::FETCH_CLASS, Holiday::class);
       $result = $query->fetch();
       if ($result === false) {
@@ -61,14 +63,16 @@ class Holidays {
       return $result;
    }
 
-   public function getHolidayByDate(\DateTimeImmutable $start) 
+   public function getHolidayByDate(\DateTimeImmutable $start) : bool
    {
       $date = $start->format('Y-m-d');
-      $query = $this->pdo->query("SELECT * FROM holidays WHERE start = '$date'");
+      $sql = "SELECT * FROM holidays WHERE start = ?";
+      $query = $this->pdo->prepare($sql);
+      $query->execute([$date]);
       $result = $query->fetch();
+
       if ($result) {
-         throw new \Exception("La date est déjà prise.");
-         // return false;
+         return false;
       }
       
       return true;
@@ -104,7 +108,7 @@ class Holidays {
       $query = $this->pdo->prepare("DELETE FROM holidays WHERE id = ?");
       $valid = $query->execute([$id]);
       if ($valid === false) {
-         throw new \Exception("Impossible de supprimer l'id $id.");
+         throw new \Exception("Impossible de supprimer la journée");
       }
    }
 
@@ -117,7 +121,7 @@ class Holidays {
       return $result;
    }
 
-   public function updateDaysTotal($numbers, $name)
+   public function updateDaysTotal($numbers, $name) : bool
    {
       $sql = "UPDATE days SET numbers = ? WHERE name = ?";
       $query = $this->pdo->prepare($sql);
@@ -128,7 +132,7 @@ class Holidays {
       ]);
    }
 
-   public function updateYears($year, $name)
+   public function updateYears($year, $name) : bool
    {
       $sql = "UPDATE days SET year = ? WHERE name = ?";
       $query = $this->pdo->prepare($sql);
@@ -148,7 +152,7 @@ class Holidays {
       return $result;
    }
 
-   public function getSetDays($name, $year): array
+   public function getSetDays($name, $year) : array
    {
       if($name === "Enfant malade") {
          $start = new DateTimeImmutable($year . '-01-01');
@@ -159,8 +163,9 @@ class Holidays {
          $end = new DateTimeImmutable($year . '-05-31');
       }
       
-      $sql = "SELECT name, sum(semi) FROM holidays WHERE name = '$name' AND start BETWEEN '{$start->format('Y-m-d')}' AND '{$end->format('Y-m-d')}'";
-      $query =  $this->pdo->query($sql);
+      $sql = "SELECT name, sum(semi) FROM holidays WHERE name = ? AND start BETWEEN '{$start->format('Y-m-d')}' AND '{$end->format('Y-m-d')}'";
+      $query =  $this->pdo->prepare($sql);
+      $query->execute([$name]);
       $result = $query->fetchAll(\PDO::FETCH_COLUMN|\PDO::FETCH_GROUP);
 
       $days = [];
@@ -173,5 +178,43 @@ class Holidays {
       }
 
       return $days;
+   }
+
+   public function getNumberDaysSet() : array
+   {
+      $daysTotal = $this->getCounter();
+      $nameHolidays = $this->getNameHolidays();
+      $children = "Enfant malade";
+
+      foreach($daysTotal as $total) {
+         $totalDays[$total['name']] = intVal($total['numbers']);
+         if ($total['name'] === $nameHolidays[0]) {
+            $year = $total['year'];
+         }
+         if ($total['name'] === $children) {
+            $yearChildren = $total['year'];
+         }
+      }
+
+      foreach($nameHolidays as $nameH) {
+         if($nameH === $children) {
+            $yearFinal = $yearChildren;
+         } else {
+            $yearFinal = $year;
+         }
+         $daysSet[] = $this->getSetDays($nameH, $yearFinal);
+      }
+      
+      foreach($daysSet as $dS) {
+         foreach($dS as $key => $value) {
+            if(array_key_exists($key, $totalDays)) {
+               $diffDays[$key] = $totalDays[$key] - floatval($value);
+            } else {
+               $diffDays[$key] = intVal($value);
+            }
+         }
+      }
+
+      return $diffDays;
    }
 }

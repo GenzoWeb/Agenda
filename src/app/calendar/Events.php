@@ -43,7 +43,9 @@ class Events {
 
    public function getEventById(int $id): Event 
    {
-      $query = $this->pdo->query("SELECT * FROM events WHERE id = $id");
+      $sql = "SELECT * FROM events WHERE id = ?";
+      $query = $this->pdo->prepare($sql);
+      $query->execute([$id]);
       $query->setFetchMode(\PDO::FETCH_CLASS, Event::class);
       $result = $query->fetch();
       if ($result === false) {
