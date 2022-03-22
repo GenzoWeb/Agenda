@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          endforeach; ?>
          </select>
          <?php if (isset($errors['name'])): ?>
-            <p><?= $errors['name'] ?> </p>
+            <p class="alert"><?= $errors['name'] ?> </p>
          <?php endif?>
          <input type="date" name="start" id="start" value="<?= htmlentities((new DateTime($data['start']))->format('Y-m-d')); ?>" required>
          <?php if (isset($errors['start'])): ?>
-            <p><?= $errors['start'] ?> </p>
+            <p class="alert"><?= $errors['start'] ?> </p>
          <?php endif?>
          <?php if (isset($_SESSION['exist'])): ?>
-            <p><?= $_SESSION['exist']?></p>
+            <p class="alert"><?= $_SESSION['exist']?></p>
          <?php endif?>
          <button type="submit" class="btn">Modifier</button>
       </form>  

@@ -40,7 +40,6 @@
       background-color: white;
       border: 1px solid $borderNav;
       z-index: 10;
-      // color: $colorTextNav;
       top: 50px;
       margin-left: 15px;
       box-shadow: 0 2px 4px black;
@@ -73,7 +72,7 @@
    }
 }
 
-@media only screen and (max-width: 850px) {
+@media #{$navHeightModif} {
    #header {
       nav {
          width: 430px;
@@ -83,7 +82,7 @@
          flex-wrap: wrap;
       }
 
-      .logout {
+      .log {
          position: relative;
          right: 0;
       }

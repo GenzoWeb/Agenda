@@ -35,8 +35,7 @@ if (session_status() === PHP_SESSION_NONE) {
                      <ul class="menu_list">
                         <li><a href="/Agenda/public/repos">Congés</a></li>
                         <li><a href="/Agenda/public/rendez-vous">Rendez-vous</a></li>
-                        <li><a href="/Agenda/public/gestion-compteur">Nombre de jours</a></li>
-                        <li><a href="/Agenda/public/gestion-modif-compteur">Modifier compteurs</a></li>
+                        <li><a href="/Agenda/public/gestion-compteur">Compteurs</a></li>
                         <li><a href="/Agenda/public/gestion-suppr">Supprimez</a></li>
                      </ul>
                   </li>

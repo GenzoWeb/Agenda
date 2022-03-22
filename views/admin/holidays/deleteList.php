@@ -36,13 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    <?php if($holidaysOfYear) : ?>
    <h1>Supprimer des jours</h1>
    <form action="" method="post">
-      <table>
-         <tr>
-            <td>Nom</td>
-            <td>Date</td>
-            <td>Suppr</td>
-         </tr>
-         <?php 
+      <table class="table_list_delete">
+         <thead>
+            <tr>
+               <th>Nom</th>
+               <th>Date</th>
+               <th>Suppr</th>
+            </tr>
+         </thead>
+         <tbody>
+         <?php
          foreach ($holidaysOfYear as $holiday): ?>
             <tr>
                <td><?= $holiday['name']; ?></td>
@@ -52,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                </td>
             </tr>
          <?php endforeach ?>
+         </tbody>
       </table>
       <button type="submit" class="btn" onclick="return confirm('Voulez vous vraiment supprimer ?')">Supprimer</button>
    </form>

@@ -1,0 +1,30 @@
+.section_admin_delete {
+   text-align: center;
+   margin-bottom: $spacing4;
+   
+   .table_list_delete {
+      width: 700px;
+      margin: auto;
+   }
+
+   tbody {
+      tr {
+         height: 40px;
+
+         td {
+            vertical-align: middle;
+            font-weight: 400;
+         }
+      }
+   }
+}
+
+@media #{$navHeightModif} {
+   .section_admin_delete {
+      text-align: center;
+      
+      .table_list_delete {
+         width: 100%;
+      }
+   }
+}

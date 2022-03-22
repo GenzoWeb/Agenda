@@ -68,19 +68,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          <input type="date" name="start" id="start" value="<?= $day ?>" required>
          <input type="date" name="end" id="end">
          <?php if (isset($errors['name'])): ?>
-            <p><?= $errors['name'] ?> </p>
+            <p class="alert"><?= $errors['name'] ?> </p>
          <?php endif?>
          <?php if (isset($errors['start'])): ?>
-            <p><?= $errors['start'] ?> </p>
+            <p class="alert"><?= $errors['start'] ?> </p>
          <?php endif?>
          <?php 
          if (isset($errors['end'])) :
             if (is_countable($errors['end'])) {
                foreach($errors['end'] as $errors) : ?>
-               <p><?= $errors ?> </p>
+               <p class="alert"><?= $errors ?> </p>
                <?php endforeach; 
             } else { ?>
-            <p><?= $errors['end'] ?> </p>
+            <p class="alert"><?= $errors['end'] ?> </p>
          <?php } endif; ?>
          <p>
            Demi-journée : <input type="checkbox" id="semi" name="semi">

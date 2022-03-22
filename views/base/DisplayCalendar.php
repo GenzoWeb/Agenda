@@ -12,8 +12,10 @@ use DateTime;
 require("../views/holidays/testDaysOff.php");
 
 class DisplayCalendar extends Month {
+
    public function displayCalendarHtml()
    {
+      $schoolHolidays = $this->holidaysSchool();
       $pdo = Connection::getPDO();
       $evenements = new \App\calendar\Events($pdo);
       $dayOff = new \App\calendar\Holidays($pdo);
@@ -57,28 +59,51 @@ class DisplayCalendar extends Month {
                      $eventsByDay = $events[$date->format('Y-m-d')] ?? [];
                      $holidaysByDay = $holidays[$date->format('Y-m-d')] ?? [];
                      $noWork = testNoWorkingDay($date->format('d-m-Y'));
-                     $semi = "";
+                     $class = "";
+
+                     if ($date->format('w') <= 0  || $date->format('w') >= 6 || $noWork) {
+                        $class = "week_end";
+                     }
 
                      foreach($holidaysByDay as $holiB) {
                         if($holiB['semi'] === "0.5") {
-                           $semi = "semi";
-                        } else {
-                           $semi = "";
+                           $class = $class . " semi";
                         }
                      }
+                   
+                     if(isset($holidays[$date->format('Y-m-d')])) {
+                        $class = $class . " days_off";
+                     }?>
 
-                     if ($date->format('w') > 0  && $date->format('w') < 6 && !$noWork) {
-                        $class = "" . $semi;
-                     } else {
-                        $class = "week_end " . $semi;
-                     }
-
-                     if(isset($holidays[$date->format('Y-m-d')])): ?>
-                     <td class="days_off <?= $class ?>">
-                     <?php else: ?>
                      <td class="<?= $class ?>">
-                     <?php 
-                     endif;
+       
+                     <?php
+                     if($schoolHolidays) {
+                        $numberHolidays = count($schoolHolidays);
+                        $testDate = new DateTime($date->format('Y-m-d'));
+                        if ($numberHolidays) {
+                           if ($numberHolidays > 1) {
+                              foreach ($schoolHolidays as $s) {
+                                 if($s['description'] !== "Pont de l'Ascension") {
+                                    $startHolidays =  (new dateTime($s['start']))->modify('+1days');
+                                    $endHolidays =  new dateTime($s['end']);
+                                 }
+
+                                 if ($testDate  >= $startHolidays &&  $testDate  <= $endHolidays) { ?>
+                                    <div class="school_off"></div>
+                                 <?php }  
+                              }
+                           } else {
+                              $startHolidays = (new dateTime($schoolHolidays[0]['start']))->modify('+1days');
+                              $endHolidays = new dateTime($schoolHolidays[0]['end']);
+   
+                              if ($testDate  >= $startHolidays &&  $testDate  <= $endHolidays) { ?>
+                                 <div class="school_off"></div>
+                              <?php }  
+                           }
+                        }
+                     }
+                      
                      $this->testToday($date);
                      if ($eventsByDay || $holidaysByDay ):
                         $this->testEvent($holidaysByDay, $eventsByDay);
@@ -103,19 +128,23 @@ class DisplayCalendar extends Month {
       }
    }
 
+
    public function testToday($day)
    {
       $today = date('Y-m-d');
       $month = intval(date('m'));
       $displayDay = $day->format('d');
 
-      if ($today === $day->format('Y-m-d') && $month === $this->month): ?>
-      <div class="list_events active_today">
-      <?php else : ?>
-      <div class="list_events">
-      <?php 
+      $class= "";
+      if ($today === $day->format('Y-m-d') && $month === $this->month) :
+      $class = "list_events active_today";
+      else :
+      $class = "list_events";
       endif;
-      if(isset($_SESSION['logged'])) : ?>
+      ?>
+
+      <div class="<?= $class ?>">
+      <?php if(isset($_SESSION['logged'])) : ?>
          <p class="cursor"><?= $displayDay ?></p>
          <div class="choice_event">
             <a href="repos/<?= $day->format('d/m/Y')?>">congés</a>
@@ -161,5 +190,21 @@ class DisplayCalendar extends Month {
          <?php endif; ?>
       </div>
    <?php
+   }
+
+   public function holidaysSchool() {
+      $start = $this->getFirstDay();
+      $firstMondayMonth = new dateTime($this->getFirstDay()->modify('last monday')->format('Y-m-d'));
+      $lastDayMonth = new DateTime((clone $start)->modify('+' . ($this->numberMonth - 1) . 'months')->format( 'Y-m-t' ));
+      $lastSundayMonth = $lastDayMonth->format('N') === '7' ? $lastDayMonth : $lastDayMonth->modify('next sunday');
+
+      $schoolHolidays = new \App\API\SchoolHolidays();
+      $school = $schoolHolidays->getSchoolHolidays($firstMondayMonth, $lastSundayMonth );
+      
+      if ($school) {
+         if($school[0]['description'] !== "Pont de l'Ascension") {
+            return $school;
+         }
+      }
    }
 }

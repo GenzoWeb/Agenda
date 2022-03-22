@@ -1,5 +1,7 @@
 <?php 
 $calendarsHome = new \Views\DisplayCalendar(2); 
+// $schoolHolidays = new \App\API\SchoolHolidays();
+
 if (isset($_SESSION['delete'])) {
    $session = $_SESSION['delete'];
 }
@@ -17,6 +19,9 @@ if (isset($_SESSION['valid'])) {
    <?php endif; ?>
 
    <div class="section_home_content">
-      <?php $calendarsHome->displayCalendarHtml();?>
+      <?php 
+      $calendarsHome->displayCalendarHtml();
+      ?>
+
    </div>
 </div>

@@ -26,3 +26,11 @@
       }
    }
 }
+
+@media #{$navHeightModif} {
+   .section_home_content {
+      .calendar {
+         min-height: calc(100vh - 140px);
+      }
+   }
+}

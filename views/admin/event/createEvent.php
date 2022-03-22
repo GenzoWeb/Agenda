@@ -41,15 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <form action="" method="post">
          <input type="text" name="name" id="name" placeholder="Nom du rendez vous *" value="<?= isset($data['name']) ? htmlentities($data['name']) : ''; ?>" required>
          <?php if (isset($errors['name'])): ?>
-            <p><?= $errors['name'] ?> </p>
+            <p class="alert"><?= $errors['name'] ?> </p>
          <?php endif?>
          <input type="date" name="date" id="date" value="<?= isset($data['date']) ? htmlentities($data['date']) : $day; ?>" required>
          <?php if (isset($errors['date'])): ?>
-            <p><?= $errors['date'] ?> </p>
+            <p class="alert"><?= $errors['date'] ?> </p>
          <?php endif?>
          <input type="time" name="start" id="start" value="<?= isset($data['start']) ? htmlentities($data['start']) : ''; ?>" required>
          <?php if (isset($errors['start'])): ?>
-            <p><?= $errors['start'] ?> </p>
+            <p class="alert"><?= $errors['start'] ?> </p>
          <?php endif?>
          <textarea name="description" id="description" placeholder="desciption"><?= isset($data['description']) ? htmlentities($data['description']) : ''; ?></textarea>
          <button type="submit" class="btn">Envoyer</button>

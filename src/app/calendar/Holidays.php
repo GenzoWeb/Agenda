@@ -217,4 +217,40 @@ class Holidays {
 
       return $diffDays;
    }
+
+   public function yearCalculate($daysHolidays) {
+      foreach($daysHolidays as $d) {
+         if ($d['name'] === "CP" || $d['name'] === "Enfant malade") {
+            $yearHoliday[$d['name']] = $d['year'];
+         }
+      }
+
+      $holidayYear = date($yearHoliday['CP']);
+      $holidayYearChildren = date($yearHoliday['Enfant malade']);
+      $date = new DateTimeImmutable(date('d-m-Y'));
+      $year = $date->format('Y');
+      $dateChange = new DateTimeImmutable(date('01-06-' . $holidayYear));
+      $dateChangeCurrent = new DateTimeImmutable(date('01-06-' . $year));
+
+      if ($date >= $dateChange && $date >= $dateChangeCurrent) {
+         $year = $date->modify("+1year")->format('Y');
+         foreach ($daysHolidays as $total){
+            if ($total['name'] !== "Enfant malade") {
+               $this->updateYears($year, $total['name']);
+            }
+         }
+      } else {
+         if ($holidayYear !== $year && $date < $dateChangeCurrent) {
+            foreach ($daysHolidays as $total){
+               if ($total['name'] !== "Enfant malade") {
+                  $this->updateYears($date->format('Y'), $total['name']);
+               }
+            }
+         }
+      }
+
+      if ($holidayYearChildren !== $year) {
+         $this->updateYears($date->format('Y'), "Enfant malade");
+      }
+   }
 }

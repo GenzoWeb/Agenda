@@ -21,7 +21,6 @@ $router
     ->get('/conges-modif-[i:id]', 'admin/holidays/edit', 'editHoliday', 'post')
     ->get('/conges-suppr-[i:id]', 'admin/holidays/delete', 'deleteHoliday')
     ->get('/gestion-suppr', 'admin/holidays/deleteList', 'adminDelete', 'post')
-    ->get('/gestion-compteur', 'admin/holidays/numberDays', 'adminCounter')
-    ->get('/gestion-modif-compteur', 'admin/holidays/editNumberDays', 'adminEditCounter', 'post')
+    ->get('/gestion-compteur', 'admin/holidays/editNumberDays', 'adminEditCounter', 'post')
     ->get('/erreur', 'base/notFound', 'notFound')
     ->run();

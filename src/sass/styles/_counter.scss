@@ -1,0 +1,59 @@
+.section_admin_edit_Number_Days {
+   text-align: center;
+   margin: auto;
+
+   .admin_adit_numbers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: $spacing3;
+   }
+   
+   .counter {
+      form {
+         width: 500px;
+         margin-left: auto;
+         margin-right: auto;
+      }
+
+      input[type=text] {
+         width: 50px;
+         background-color: $bgDayOff;
+         border-radius: unset;
+         margin: 5px 0;
+         padding: unset;
+         text-align: center;
+      }
+   }
+
+   .table_rest_days {
+      margin-top: $spacing4;
+      width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+
+      td {
+         height: 30px;
+         padding: 5px 0;
+         vertical-align: middle;
+      }
+
+      .rest_days {
+         font-weight: 400;
+      }
+   }
+}
+
+@media #{$small} {
+   .section_admin_edit_Number_Days {
+      .counter {
+         form {
+            width: 400px;
+         }
+      }
+
+      .table_rest_days {
+         width: 400px;
+      }
+   }
+}

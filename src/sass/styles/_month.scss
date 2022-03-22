@@ -10,3 +10,11 @@
       margin-left: 0;
    }
 }
+
+@media #{$navHeightModif} {
+   .section_month {
+      .calendar {
+         height: calc(100vh - 140px);
+      }
+   }
+}

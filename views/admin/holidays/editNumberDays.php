@@ -7,6 +7,7 @@ $pdo = Connection::getPDO();
 $holidays = new \App\calendar\Holidays($pdo);
 $title = "Modifier Nombre de jours";
 $daysHolidays = $holidays->getCounter();
+$diffDays = $holidays->getNumberDaysSet();
 $yearHoliday=[];
 $start = $daysHolidays[0]['year'] - 1;
 $end = $daysHolidays[0]['year'];
@@ -14,40 +15,9 @@ $end = $daysHolidays[0]['year'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    $data = $_POST;
 
-   if (isset($data['valid'])) {         
-      foreach($daysHolidays as $d) {
-         if ($d['name'] === "CP" || $d['name'] === "Enfant malade") {
-            $yearHoliday[$d['name']] = $d['year'];
-         }
-      }
+   if (isset($data['valid'])) {   
+      $holidays->yearCalculate($daysHolidays);
 
-      $holidayYear = date($yearHoliday['CP']);
-      $holidayYearChildren = date($yearHoliday['Enfant malade']);
-      $date = new DateTimeImmutable(date('d-m-Y'));
-      $year = $date->format('Y');
-      $dateChange = new DateTimeImmutable(date('01-06-' . $holidayYear));
-      $dateChangeCurrent = new DateTimeImmutable(date('01-06-' . $year));
-
-      if ($date >= $dateChange && $date >= $dateChangeCurrent) {
-         $year = $date->modify("+1year")->format('Y');
-         foreach ($daysHolidays as $total){
-            if ($total['name'] !== "Enfant malade") {
-               $holidays->updateYears($year, $total['name']);
-            }
-         }
-      } else {
-         if ($holidayYear !== $year && $date < $dateChangeCurrent) {
-            foreach ($daysHolidays as $total){
-               if ($total['name'] !== "Enfant malade") {
-                  $holidays->updateYears($date->format('Y'), $total['name']);
-               }
-            }
-         }
-      }
-      
-      if ($holidayYearChildren !== $year) {
-         $holidays->updateYears($date->format('Y'), "Enfant malade");
-      }
       if (!isset($data['validDay'])){
          header('location: /Agenda/public/gestion-modif-compteur');
          exit();
@@ -73,29 +43,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div class="section_admin_edit_Number_Days">
-   <h1>Modification du nombre des jours ( <?= $start . " / " . $end ?> )</h1>   
-   <form action="" method="post">
-      <table> 
-         <?php 
-         foreach($daysHolidays as $daysH): ?>
-         <tr>
-            <td> <?= $daysH['name'] ?></td>
-            <td>
-               <input type="text" name="<?= $daysH['name'] ?>" id="<?= $daysH['name'] ?>" value="<?= htmlentities($daysH['numbers']); ?>" required>
-            </td>
-         </tr>
-         <?php endforeach ?> 
-      </table>
-      <p>
-         Mise à jour du nombre des jours : <input type="checkbox" id="validDay" name="validDay">
-      </p>
-      <p>
-         Mise à jour année en cours : <input type="checkbox" id="valid" name="valid">
-      </p>
-      <?php if (isset($errors)): 
-      foreach($errors as $er): ?>
-      <p><?= $er; ?> </p>
-      <?php endforeach; endif; ?>
-      <button type="submit" class="btn" onclick="return confirm('Voulez vous vraiment faire la mise à jour ?')">Mise à jour</button>
-   </form>
+   <h1>Gestion du compteur de jours</h1>
+   <div class="admin_adit_numbers">
+      <div class="counter">
+         <form action="" method="post">
+            <table>
+               <caption>
+                  Modification des jours ( <?= $start . " / " . $end ?> )
+               </caption>
+               <?php 
+               foreach($daysHolidays as $daysH): ?>
+               <tr>
+                  <td> <?= $daysH['name'] ?></td>
+                  <td>
+                     <input type="text" name="<?= $daysH['name'] ?>" id="<?= $daysH['name'] ?>" value="<?= htmlentities($daysH['numbers']); ?>" required>
+                  </td>
+               </tr>
+               <?php endforeach ?> 
+            </table>
+            <p>
+               Mise à jour du nombre des jours : <input type="checkbox" id="validDay" name="validDay">
+            </p>
+            <p>
+               Mise à jour année en cours : <input type="checkbox" id="valid" name="valid">
+            </p>
+            <?php if (isset($errors)): 
+            foreach($errors as $er): ?>
+            <p class="alert"><?= $er; ?> </p>
+            <?php endforeach; endif; ?>
+            <button type="submit" class="btn" onclick="return confirm('Voulez vous vraiment faire la mise à jour ?')">Mise à jour</button>
+         </form>
+      </div>
+      <div>
+         <table class="table_rest_days">
+            <caption>Nombre de jours restant</caption>
+            <?php foreach($diffDays as $key => $value): ?>
+               <tr>
+                  <td> <?= $key ?></td>
+                  <td class="rest_days"> <?= $value ?></td>
+               </tr>
+            <?php endforeach ?>
+         </table>
+      </div>
+   </div>
 </div>

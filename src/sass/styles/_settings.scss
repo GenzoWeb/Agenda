@@ -76,7 +76,7 @@ body {
    margin-top: $spacing4;
 }
 
-h1 {
+h1, caption {
    font-size: 18px;
    font-weight: 500;
 }
@@ -95,6 +95,10 @@ form {
 
    textarea {
       padding-left: 15px;
+   }
+
+   input[type=checkbox] {
+      vertical-align: middle;
    }
 }
 
@@ -125,6 +129,29 @@ form {
    }
 }
 
+.alert {
+   color: red;
+}
+
+table {
+   th, caption {
+      height: 40px;
+      background-color: $bgTitleCalendar;
+      color: $colorCalendar;
+      line-height: 40px;
+   }
+
+   tbody {
+      background-color: $colorCalendar;
+   }
+
+   td, th {
+      border: 1px solid black;
+   }
+
+}
+
 /************************  MEDIA-QUERIES  ************************/
 $medium: "only screen and (max-width: 1535px)";
+$navHeightModif: "only screen and (max-width: 850px)";
 $small: "only screen and (max-width: 690px)";
