@@ -28,13 +28,16 @@ h1, caption {
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
   margin-top: 1.5rem;
 }
 form input {
   height: 30px;
   border-radius: 25px;
   padding-left: 15px;
+  margin-bottom: 1.5rem;
+}
+form select, form textarea {
+  margin-bottom: 1.5rem;
 }
 form textarea {
   padding-left: 15px;
@@ -82,6 +85,7 @@ form input[type=checkbox] {
 
 .alert {
   color: red;
+  margin-bottom: 1.5rem;
 }
 
 table th, table caption {
@@ -156,6 +160,7 @@ table td, table th {
 #header .log {
   position: absolute;
   right: 30px;
+  top: 0;
 }
 #header .log:hover a {
   color: #adadff !important;
@@ -182,32 +187,41 @@ table td, table th {
 .calendar .days_calendar {
   text-align: center;
   font-weight: 400;
+  height: 40px;
 }
 .calendar .days_calendar td {
+  position: relative;
   height: 20px;
   line-height: 20px;
 }
 .calendar .days_calendar .day_calendar {
   background-color: #adadff;
+  background-clip: padding-box;
 }
 .calendar td {
   position: relative;
   padding: 10px;
-  min-height: 50px;
   width: 80px;
-  vertical-align: bottom;
 }
 .calendar .number_week {
   width: 10px;
   background-color: silver;
+  background-clip: padding-box;
   color: white;
   text-align: center;
+  vertical-align: bottom;
 }
 .calendar .days_off {
   background-color: skyblue;
+  background-clip: padding-box;
+}
+.calendar .cell {
+  position: relative;
+  min-height: 80px;
 }
 .calendar .week_end {
   background-color: #dbdbdb;
+  background-clip: padding-box;
 }
 .calendar .semi {
   background: linear-gradient(white 50%, skyblue 50%);
@@ -218,8 +232,6 @@ table td, table th {
 .calendar .list_events {
   width: 25px;
   height: 25px;
-  position: absolute;
-  top: 10px;
 }
 .calendar .school_off {
   position: absolute;
@@ -260,11 +272,10 @@ table td, table th {
   margin-left: -5px;
 }
 .calendar .events {
-  bottom: 10px;
+  bottom: 0;
   position: absolute;
   text-align: center;
   width: 100%;
-  margin-left: -10px;
 }
 .calendar .two_events {
   display: flex;
@@ -347,7 +358,7 @@ table td, table th {
     display: block;
   }
 }
-@media only screen and (max-width: 690px) {
+@media only screen and (max-width: 770px) {
   .section_year {
     flex-direction: column;
     align-items: center;
@@ -356,11 +367,6 @@ table td, table th {
 .section_month .calendar {
   width: 100%;
   height: calc(100vh - 100px);
-}
-.section_month .events {
-  position: relative;
-  bottom: 0;
-  margin-left: 0;
 }
 
 @media only screen and (max-width: 850px) {
@@ -487,9 +493,12 @@ table td, table th {
   text-align: center;
   margin-bottom: 1.5rem;
 }
-.section_admin_delete .table_list_delete {
+.section_admin_delete .form_delete {
   width: 700px;
   margin: auto;
+}
+.section_admin_delete .table_list_delete {
+  width: 100%;
 }
 .section_admin_delete tbody tr {
   height: 40px;
@@ -518,9 +527,11 @@ table td, table th {
   gap: 1rem;
 }
 .section_admin_edit_Number_Days .counter form {
-  width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+.section_admin_edit_Number_Days .counter table {
+  width: 500px;
 }
 .section_admin_edit_Number_Days .counter input[type=text] {
   width: 50px;

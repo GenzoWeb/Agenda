@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <option value="CA">CA</option>
             <option value="Enfant malade">Enfant malade</option>
          </select>
-         <input type="date" name="start" id="start" value="<?= $day ?>" required>
-         <input type="date" name="end" id="end">
+         <input type="date" name="start" id="start" value="<?= $day ?>" placeholder="aaaa-mm-jj" required>
+         <input type="date" name="end" id="end" placeholder="aaaa-mm-jj">
          <?php if (isset($errors['name'])): ?>
             <p class="alert"><?= $errors['name'] ?> </p>
          <?php endif?>

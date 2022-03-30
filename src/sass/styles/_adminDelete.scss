@@ -1,10 +1,14 @@
 .section_admin_delete {
    text-align: center;
    margin-bottom: $spacing4;
-   
-   .table_list_delete {
+
+   .form_delete {
       width: 700px;
       margin: auto;
+   }
+   
+   .table_list_delete {
+      width: 100%;
    }
 
    tbody {

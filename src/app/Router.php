@@ -28,17 +28,22 @@ class Router {
 
    public function run()
    {
-      try {
-         $match = $this->router->match();
-         $view = $match['target'];
-         $params = $match['params'];
-         $router = $this ->router;
-         ob_start();
-         require $this->viewPath . '/' . $view . '.php';
-         $content = ob_get_clean();
-         require $this->viewPath . '/' . 'base/base.php';
+      $match = $this->router->match();
 
-         return $this;
+      try {
+         if ($match) {
+            $view = $match['target'];
+            $params = $match['params'];
+            $router = $this ->router;
+            ob_start();
+            require $this->viewPath . '/' . $view . '.php';
+            $content = ob_get_clean();
+            require $this->viewPath . '/' . 'base/base.php';
+
+            return $this;
+         } else {
+            throw new \Exception('Page inexistante');
+         }
       } catch (\Exception $e) {
          header('location: /Agenda/public/erreur');
       }

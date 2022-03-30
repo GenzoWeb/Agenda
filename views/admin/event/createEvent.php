@@ -43,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          <?php if (isset($errors['name'])): ?>
             <p class="alert"><?= $errors['name'] ?> </p>
          <?php endif?>
-         <input type="date" name="date" id="date" value="<?= isset($data['date']) ? htmlentities($data['date']) : $day; ?>" required>
+         <input type="date" name="date" id="date" value="<?= isset($data['date']) ? htmlentities($data['date']) : $day; ?>" placeholder="aaaa-mm-jj" required>
          <?php if (isset($errors['date'])): ?>
             <p class="alert"><?= $errors['date'] ?> </p>
          <?php endif?>
-         <input type="time" name="start" id="start" value="<?= isset($data['start']) ? htmlentities($data['start']) : ''; ?>" required>
+         <input type="time" name="start" id="start" value="<?= isset($data['start']) ? htmlentities($data['start']) : ''; ?>" placeholder="hh:mm" required>
          <?php if (isset($errors['start'])): ?>
             <p class="alert"><?= $errors['start'] ?> </p>
          <?php endif?>

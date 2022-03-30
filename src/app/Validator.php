@@ -84,26 +84,28 @@ class Validator {
    public function dateEvent(string $field) 
    {
       $this->date($field);
-      $pdo = Connection::getPDO();
-      $events = new \App\calendar\Events($pdo);
-      $event = $events->getEvents(new \DateTimeImmutable($this->data[$field]));
-      if($event){
-         foreach($event as $e) {
-            $timeTest[] = ((new \DateTime($e['start']))->format("H:i"));
-          }
-    
-          if (in_array($this->data['start'], $timeTest)) {
-             $this->errors['start'] = "Vous avez déjà un rendez vous";
-          }
+      if (empty($this->errors)) {
+         $pdo = Connection::getPDO();
+         $events = new \App\calendar\Events($pdo);
+         $event = $events->getEvents(new \DateTimeImmutable($this->data[$field]));
+         if($event){
+            foreach($event as $e) {
+               $timeTest[] = ((new \DateTime($e['start']))->format("H:i"));
+            }
+      
+            if (in_array($this->data['start'], $timeTest)) {
+               $this->errors['start'] = "Vous avez déjà un rendez vous";
+            }
+         }
       }
    }
 
    public function dateHolidays(string $field)
    {
       $this->date($field);
-      $this->noWork($field);
 
       if (empty($this->errors)) {
+         $this->noWork($field);
          if (isset($this->data['end'])){
             if ($this->data['end'] !== "" ) {
                $this->date('end');

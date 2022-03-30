@@ -11,9 +11,12 @@
    
    .counter {
       form {
-         width: 500px;
          margin-left: auto;
          margin-right: auto;
+      }
+
+      table {
+         width: 500px;
       }
 
       input[type=text] {

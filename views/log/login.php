@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div class="section_login">
-   <h1>Se connecter</h1>
+   <h1>Connexion</h1>
    <div class="login">
       <?php if ($error): ?>
       <div><p class="alert"><?= $error ?></p></div>

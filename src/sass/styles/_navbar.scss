@@ -65,6 +65,7 @@
    .log {
       position: absolute;
       right: 30px;
+      top: 0;
 
       &:hover a {
          color: $daysCalendar !important;

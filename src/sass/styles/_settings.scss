@@ -84,13 +84,17 @@ h1, caption {
 form {
    display: flex;
    flex-direction: column;
-   gap: $spacing4;
    margin-top: $spacing4;
 
    input {
       height: 30px;
       border-radius: 25px;
       padding-left: 15px;
+      margin-bottom: $spacing4;
+   }
+
+   select, textarea {
+      margin-bottom: $spacing4;
    }
 
    textarea {
@@ -131,6 +135,7 @@ form {
 
 .alert {
    color: red;
+   margin-bottom: $spacing4;
 }
 
 table {

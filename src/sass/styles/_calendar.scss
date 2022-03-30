@@ -8,38 +8,48 @@
    .days_calendar {
       text-align: center;
       font-weight: 400;
+      height: 40px;
 
       td {
+         position: relative;
          height: 20px;
          line-height: 20px;
       }
 
       .day_calendar {
          background-color: $daysCalendar;
+         background-clip: padding-box;
       }
    }
 
    td {
       position: relative;
       padding: 10px;
-      min-height: 50px;
       width: 80px;
-      vertical-align: bottom;
    }
 
    .number_week {
       width: 10px;
       background-color: $bgWeeksCalendar;
+      background-clip: padding-box;
       color: white;
       text-align: center;
+      vertical-align: bottom;
    }
 
    .days_off {
       background-color: $bgDayOff;
+      background-clip: padding-box;
+   }
+
+   .cell {
+      position: relative;
+      min-height: 80px;
    }
 
    .week_end {
       background-color: $bgWeekEndsCalendar;
+      background-clip: padding-box;
    }
 
    .semi {
@@ -53,8 +63,6 @@
    .list_events {
       width: 25px;
       height: 25px;
-      position: absolute;
-      top: 10px;
    }
 
    .school_off {
@@ -102,11 +110,10 @@
    }
 
    .events {
-      bottom: 10px;
+      bottom: 0;
       position: absolute;
       text-align: center;
       width: 100%;
-      margin-left: -10px;
    }
 
    .two_events {

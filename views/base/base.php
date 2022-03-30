@@ -13,6 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
       <meta name="description" content="La description">
       <link rel="stylesheet" type="text/css" href="\Agenda/assets/css/reset.css"/>
       <link rel="stylesheet" type="text/css" href="\Agenda/assets/css/style.css"/>
+      <link rel="icon" type="image/x-icon" href="\Agenda/assets/images/favicon.ico" />
       <title><?= $title ?? 'Accueil'?></title>
    </head>
    <body>

@@ -76,38 +76,40 @@ class DisplayCalendar extends Month {
                      }?>
 
                      <td class="<?= $class ?>">
-       
-                     <?php
-                     if($schoolHolidays) {
-                        $numberHolidays = count($schoolHolidays);
-                        $testDate = new DateTime($date->format('Y-m-d'));
-                        if ($numberHolidays) {
-                           if ($numberHolidays > 1) {
-                              foreach ($schoolHolidays as $s) {
-                                 if($s['description'] !== "Pont de l'Ascension") {
-                                    $startHolidays =  (new dateTime($s['start']))->modify('+1days');
-                                    $endHolidays =  new dateTime($s['end']);
-                                 }
+                        <?php
+                        if($schoolHolidays) {
+                           $numberHolidays = count($schoolHolidays);
+                           $testDate = new DateTime($date->format('Y-m-d'));
+                           if ($numberHolidays) {
+                              if ($numberHolidays > 1) {
+                                 foreach ($schoolHolidays as $s) {
+                                    if($s['description'] !== "Pont de l'Ascension") {
+                                       $startHolidays =  (new dateTime($s['start']))->modify('+1days');
+                                       $endHolidays =  new dateTime($s['end']);
+                                    }
 
+                                    if ($testDate  >= $startHolidays &&  $testDate  <= $endHolidays) { ?>
+                                       <div class="school_off"></div>
+                                    <?php }  
+                                 }
+                              } else {
+                                 $startHolidays = (new dateTime($schoolHolidays[0]['start']))->modify('+1days');
+                                 $endHolidays = new dateTime($schoolHolidays[0]['end']);
+      
                                  if ($testDate  >= $startHolidays &&  $testDate  <= $endHolidays) { ?>
                                     <div class="school_off"></div>
                                  <?php }  
                               }
-                           } else {
-                              $startHolidays = (new dateTime($schoolHolidays[0]['start']))->modify('+1days');
-                              $endHolidays = new dateTime($schoolHolidays[0]['end']);
-   
-                              if ($testDate  >= $startHolidays &&  $testDate  <= $endHolidays) { ?>
-                                 <div class="school_off"></div>
-                              <?php }  
                            }
-                        }
-                     }
-                      
-                     $this->testToday($date);
-                     if ($eventsByDay || $holidaysByDay ):
-                        $this->testEvent($holidaysByDay, $eventsByDay);
-                     endif;?>
+                        } ?>
+
+                        <div class="cell">
+                        
+                        <?php $this->testToday($date);
+                        if ($eventsByDay || $holidaysByDay ):
+                           $this->testEvent($holidaysByDay, $eventsByDay);
+                        endif;?>
+                        </div>
                      </td>
                      <?php endforeach; ?>
                   </tr>
