@@ -51,6 +51,36 @@ class DisplayCalendar extends Month {
                   <?php for ($j = 0; $j < $this->getWeeks(); $j++): ?>
                   <tr>
                      <td class="number_week">
+                        <?php
+                           $refDay = new DateTime("2022-09-26");
+                           $dateStart = new DateTime($starts->format('Y-m-d'));
+                           $compare = ($refDay->diff($dateStart))->days/7;
+                           $intCompare = is_int($compare);
+                           if ($intCompare) {
+                              $pair = $compare % 2;
+                           }
+
+                           if ($j == 0 && $pair == 0) {
+                              $ref = true;
+                           } 
+                           
+                           if ($j == 0 && $pair !== 0) {
+                              $ref = false;
+                           }
+
+                           if ($j > 0) {
+                              $ref = !$ref;
+                           }
+                           
+                           if ($ref) {
+                              $team = 'AM';
+                           } else {
+                              $team = 'M';
+                           }
+                        ?>
+                        <span class="team"><?= $team ?></span>
+
+
                         <?= $starts->modify("+" . $j . "week")->format('W')?>
                      </td>
 
@@ -130,7 +160,6 @@ class DisplayCalendar extends Month {
       }
    }
 
-
    public function testToday($day)
    {
       $today = date('Y-m-d');
@@ -139,9 +168,9 @@ class DisplayCalendar extends Month {
 
       $class= "";
       if ($today === $day->format('Y-m-d') && $month === $this->month) :
-      $class = "list_events active_today";
+         $class = "list_events active_today";
       else :
-      $class = "list_events";
+         $class = "list_events";
       endif;
       ?>
 

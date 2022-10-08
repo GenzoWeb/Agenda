@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $holidays->yearCalculate($daysHolidays);
 
       if (!isset($data['validDay'])){
-         header('location: /Agenda/public/gestion-modif-compteur');
+         header('location: /Agenda/public/gestion-compteur');
          exit();
       }
    }
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                $holidays->updateDaysTotal($value, $name);
             }
          }
-         header('location: /Agenda/public/gestion-modif-compteur');
+         header('location: /Agenda/public/gestion-compteur');
          exit();
       } 
    }

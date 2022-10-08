@@ -29,12 +29,17 @@
    }
 
    .number_week {
-      width: 10px;
+      width: 25px;
       background-color: $bgWeeksCalendar;
       background-clip: padding-box;
       color: white;
       text-align: center;
       vertical-align: bottom;
+   }
+
+   .team {
+      position: absolute;
+      top: 10px;
    }
 
    .days_off {
